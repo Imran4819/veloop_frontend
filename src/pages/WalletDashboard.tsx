@@ -3,7 +3,7 @@ import {
   Zap, ShieldCheck, Gem, Coins, RotateCw,
   ArrowUpRight, ArrowDownLeft, RefreshCw, AlertTriangle,
   ChevronLeft, ChevronRight, Layers, Sparkles,
-  TrendingUp, Clock, CheckCircle, XCircle, History, Plus,
+  TrendingUp, Clock, CheckCircle, XCircle, History,
 } from 'lucide-react';
 import { apiClient } from '../services/apiClient';
 import { CURRENCY_CONFIGS } from '../services/mockBackend';
@@ -194,20 +194,6 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
-
-  const [isCrediting, setIsCrediting] = useState(false);
-
-  const handleAddVEs = async (amount = 1000) => {
-    setIsCrediting(true);
-    try {
-      await apiClient.creditWallet(amount);
-      await loadData(page);
-    } catch (err: any) {
-      setError(err.message || 'Failed to add VEs.');
-    } finally {
-      setIsCrediting(false);
-    }
-  };
 
   const loadData = async (targetPage = page) => {
     setLoading(true);
