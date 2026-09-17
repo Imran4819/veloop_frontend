@@ -8,9 +8,6 @@ import { WithdrawalsPage } from './pages/WithdrawalsPage';
 import { apiClient } from './services/apiClient';
 import type { UserWallet } from './types/rewards';
 
-// ─── Simple auth guard ───────────────────────────────────────────────────────
-const isAuthenticated = () => Boolean(localStorage.getItem('veloop_access_token'));
-
 export function App() {
   const [currentPath, setCurrentPath] = useState<string>('/wallet');
 
