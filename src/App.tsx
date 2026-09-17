@@ -12,17 +12,12 @@ import type { UserWallet } from './types/rewards';
 const isAuthenticated = () => Boolean(localStorage.getItem('veloop_access_token'));
 
 export function App() {
-  const [currentPath, setCurrentPath] = useState<string>(() => {
-    // Redirect to login if not authenticated (but allow login page)
-    if (!isAuthenticated()) return '/login';
-    return '/wallet';
-  });
+  const [currentPath, setCurrentPath] = useState<string>('/wallet');
 
   const [wallet, setWallet] = useState<UserWallet | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const fetchGlobalWallet = async () => {
-    if (!isAuthenticated()) return;
     try {
       const data = await apiClient.getWallet();
       setWallet(data);
@@ -36,11 +31,6 @@ export function App() {
   }, [refreshTrigger, currentPath]);
 
   const handleNavigate = (path: string) => {
-    // Guard protected routes
-    if (path !== '/login' && !isAuthenticated()) {
-      setCurrentPath('/login');
-      return;
-    }
     setCurrentPath(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -51,8 +41,9 @@ export function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('veloop_access_token');
+    localStorage.removeItem('veloop_user_profile');
     setWallet(null);
-    handleNavigate('/login');
+    handleNavigate('/wallet');
   };
 
   return (
