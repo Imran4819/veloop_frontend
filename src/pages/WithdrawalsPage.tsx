@@ -12,13 +12,13 @@ interface WithdrawalsPageProps {
   onWalletRefresh: () => void;
 }
 
-// ─── Status config ───────────────────────────────────────────────────────────
+// ─── Status Config (Light) ──────────────────────────────────────────────────
 const STATUS_CONFIG: Record<WithdrawalStatus, { label: string; color: string; bg: string; border: string; Icon: React.ElementType }> = {
-  pending:    { label: 'Pending',    color: '#FBBF24', bg: 'rgba(245,158,11,0.12)',   border: 'rgba(245,158,11,0.3)',   Icon: Clock },
-  processing: { label: 'Processing', color: '#22D3EE', bg: 'rgba(6,182,212,0.12)',    border: 'rgba(6,182,212,0.3)',    Icon: RefreshCw },
-  approved:   { label: 'Approved',   color: '#34D399', bg: 'rgba(16,185,129,0.12)',   border: 'rgba(16,185,129,0.3)',   Icon: CheckCircle2 },
-  rejected:   { label: 'Rejected',   color: '#F87171', bg: 'rgba(244,63,94,0.12)',    border: 'rgba(244,63,94,0.3)',    Icon: XCircle },
-  cancelled:  { label: 'Cancelled',  color: '#94A3B8', bg: 'rgba(148,163,184,0.08)',  border: 'rgba(148,163,184,0.2)', Icon: Ban },
+  pending:    { label: 'Pending',    color: '#b45309', bg: 'rgba(245,158,11,0.12)',   border: 'rgba(245,158,11,0.3)',   Icon: Clock },
+  processing: { label: 'Processing', color: '#0369a1', bg: 'rgba(6,182,212,0.12)',    border: 'rgba(6,182,212,0.3)',    Icon: RefreshCw },
+  approved:   { label: 'Approved',   color: '#047857', bg: 'rgba(16,185,129,0.12)',   border: 'rgba(16,185,129,0.3)',   Icon: CheckCircle2 },
+  rejected:   { label: 'Rejected',   color: '#be123c', bg: 'rgba(244,63,94,0.12)',    border: 'rgba(244,63,94,0.3)',    Icon: XCircle },
+  cancelled:  { label: 'Cancelled',  color: '#475569', bg: 'rgba(148,163,184,0.12)',  border: 'rgba(148,163,184,0.25)', Icon: Ban },
 };
 
 const METHOD_ICONS: Record<string, React.ElementType> = {
@@ -28,12 +28,12 @@ const METHOD_ICONS: Record<string, React.ElementType> = {
 };
 
 const METHOD_COLORS: Record<string, string> = {
-  upi: '#10B981',
-  amazon_gift: '#F59E0B',
-  google_play: '#8B5CF6',
+  upi: '#059669',
+  amazon_gift: '#d97706',
+  google_play: '#7c3aed',
 };
 
-// ─── Withdrawal Item ─────────────────────────────────────────────────────────
+// ─── Withdrawal Timeline Card Component ─────────────────────────────────────
 const WithdrawalCard: React.FC<{
   w: Withdrawal;
   onCancel: (id: string) => void;
@@ -41,110 +41,117 @@ const WithdrawalCard: React.FC<{
 }> = ({ w, onCancel, cancelling }) => {
   const sc = STATUS_CONFIG[w.status] ?? STATUS_CONFIG.pending;
   const MethodIcon = METHOD_ICONS[w.method] ?? Smartphone;
-  const methodColor = METHOD_COLORS[w.method] ?? '#10B981';
+  const methodColor = METHOD_COLORS[w.method] ?? '#059669';
   const isCancelling = cancelling === w.id;
 
   return (
     <div
       className="withdrawal-item"
-      style={{ padding: '18px', borderRadius: '14px', background: 'rgba(13, 20, 36, 0.5)', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '10px', transition: 'border-color 0.2s ease' }}
+      style={{
+        padding: '20px',
+        borderRadius: '16px',
+        background: '#ffffff',
+        border: '1px solid rgba(226, 232, 240, 0.9)',
+        marginBottom: '12px',
+        boxShadow: '0 2px 8px rgba(15, 23, 42, 0.03)',
+        transition: 'all 0.2s ease',
+      }}
     >
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
-        {/* Method icon */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+        {/* Method Icon */}
         <div style={{
-          width: '46px', height: '46px', borderRadius: '12px', flexShrink: 0,
-          background: `rgba(${methodColor === '#10B981' ? '16,185,129' : methodColor === '#F59E0B' ? '245,158,11' : '139,92,246'}, 0.13)`,
+          width: '48px', height: '48px', borderRadius: '14px', flexShrink: 0,
+          background: `rgba(${methodColor === '#059669' ? '5,150,105' : methodColor === '#d97706' ? '217,119,6' : '124,58,237'}, 0.12)`,
           border: `1px solid ${methodColor}40`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           color: methodColor,
+          boxShadow: '0 2px 8px rgba(15,23,42,0.04)',
         }}>
-          <MethodIcon style={{ width: '22px', height: '22px' }} />
+          <MethodIcon style={{ width: '24px', height: '24px' }} />
         </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
-          {/* Title row */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '5px' }}>
-            <div style={{ fontWeight: 700, fontSize: '0.95rem', color: '#f0f6ff' }}>{w.methodLabel}</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              {/* Payout amount */}
-              <span className="tabular-num" style={{ fontWeight: 800, fontSize: '1.1rem', color: '#f0f6ff' }}>
+          {/* Header Row */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '6px' }}>
+            <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0f172a' }}>{w.methodLabel}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span className="tabular-num" style={{ fontWeight: 900, fontSize: '1.15rem', color: '#0f172a' }}>
                 {w.currencySymbol}{w.payoutAmount}
               </span>
-              {/* Status badge */}
               <span style={{
                 display: 'inline-flex', alignItems: 'center', gap: '5px',
-                padding: '3px 10px', borderRadius: '20px',
-                fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px',
+                padding: '3px 11px', borderRadius: '20px',
+                fontSize: '0.68rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.5px',
                 background: sc.bg, color: sc.color, border: `1px solid ${sc.border}`,
               }}>
                 {w.status === 'pending' && <span className="pulse-dot" style={{ width: '5px', height: '5px' }} />}
-                {w.status === 'processing' && <RefreshCw style={{ width: '10px', height: '10px', animation: 'spin 1s linear infinite' }} />}
+                {w.status === 'processing' && <RefreshCw style={{ width: '11px', height: '11px', animation: 'spin 1s linear infinite' }} />}
                 {sc.label}
               </span>
             </div>
           </div>
 
-          {/* Meta row */}
-          <div style={{ fontSize: '0.78rem', color: '#4e6072', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-            <span>To: <strong style={{ color: '#94a3b8', fontFamily: 'var(--font-mono)', fontSize: '0.72rem' }}>{w.recipientDetail}</strong></span>
+          {/* Details Row */}
+          <div style={{ fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <span>To: <strong style={{ color: '#334155', fontFamily: 'var(--font-mono)', fontSize: '0.74rem' }}>{w.recipientDetail}</strong></span>
             <span>•</span>
             <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Zap style={{ width: '11px', height: '11px', color: '#F87171' }} />
-              <span style={{ color: '#F87171', fontWeight: 700 }}>{w.requiredVEs.toLocaleString()} VEs</span>
+              <Zap style={{ width: '12px', height: '12px', color: '#e11d48' }} />
+              <span style={{ color: '#e11d48', fontWeight: 800 }}>{w.requiredVEs.toLocaleString()} VEs</span>
             </span>
             {w.transactionId && (
               <>
                 <span>•</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem' }}>#{w.transactionId}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#64748b' }}>#{w.transactionId}</span>
               </>
             )}
           </div>
 
           {/* Dates */}
-          <div style={{ fontSize: '0.72rem', color: '#4e6072', marginTop: '5px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '6px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
             <span>
               Requested:{' '}
-              <span style={{ color: '#64748B' }}>
+              <span style={{ color: '#334155', fontWeight: 600 }}>
                 {new Date(w.requestedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
               </span>
             </span>
             {w.processedAt && (
               <span>
                 Processed:{' '}
-                <span style={{ color: '#64748B' }}>
+                <span style={{ color: '#334155', fontWeight: 600 }}>
                   {new Date(w.processedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
                 </span>
               </span>
             )}
           </div>
 
-          {/* Rejection reason */}
+          {/* Rejection notice */}
           {w.status === 'rejected' && w.rejectionReason && (
             <div style={{
-              marginTop: '10px', padding: '9px 13px', borderRadius: '9px',
-              background: 'rgba(244, 63, 94, 0.08)', border: '1px solid rgba(244, 63, 94, 0.2)',
-              fontSize: '0.78rem', color: '#fca5a5', display: 'flex', gap: '8px',
+              marginTop: '12px', padding: '10px 14px', borderRadius: '10px',
+              background: '#fef2f2', border: '1px solid rgba(244, 63, 94, 0.25)',
+              fontSize: '0.8rem', color: '#9f1239', display: 'flex', gap: '8px', fontWeight: 600,
             }}>
-              <AlertTriangle style={{ width: '14px', height: '14px', flexShrink: 0, marginTop: '1px', color: '#f43f5e' }} />
+              <AlertTriangle style={{ width: '15px', height: '15px', flexShrink: 0, marginTop: '1px', color: '#e11d48' }} />
               <span>{w.rejectionReason}</span>
             </div>
           )}
         </div>
       </div>
 
-      {/* Cancel button for pending items */}
+      {/* Cancel action */}
       {w.status === 'pending' && (
-        <div style={{ marginTop: '14px', paddingTop: '14px', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ marginTop: '14px', paddingTop: '14px', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'flex-end' }}>
           <button
             id={`cancel-withdrawal-${w.id}`}
             onClick={() => onCancel(w.id)}
             disabled={isCancelling}
             className="btn-danger"
-            style={{ fontSize: '0.8rem' }}
+            style={{ fontSize: '0.82rem' }}
           >
             {isCancelling
               ? <><RefreshCw style={{ width: '13px', height: '13px', animation: 'spin 1s linear infinite' }} /> Cancelling...</>
-              : <><X style={{ width: '13px', height: '13px' }} /> Cancel Request</>}
+              : <><X style={{ width: '14px', height: '14px' }} /> Cancel Request</>}
           </button>
         </div>
       )}
@@ -152,7 +159,7 @@ const WithdrawalCard: React.FC<{
   );
 };
 
-// ─── Main Withdrawals Page ───────────────────────────────────────────────────
+// ─── Main Withdrawals Page Component ───────────────────────────────────────
 type StatusFilter = WithdrawalStatus | 'all';
 
 export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, onWalletRefresh }) => {
@@ -193,7 +200,7 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
   };
 
   const handleCancel = async (id: string) => {
-    if (!window.confirm('Are you sure you want to cancel this withdrawal? Your VEs will be restored.')) return;
+    if (!window.confirm('Are you sure you want to cancel this withdrawal request? Your VEs will be restored to your balance.')) return;
     setCancelling(id);
     try {
       const result = await apiClient.cancelWithdrawal(id);
@@ -208,18 +215,18 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
   };
 
   const filterTabs: { key: StatusFilter; label: string; color?: string }[] = [
-    { key: 'all',        label: 'All' },
-    { key: 'pending',    label: '⏳ Pending',    color: '#FBBF24' },
-    { key: 'processing', label: '⚡ Processing',  color: '#22D3EE' },
-    { key: 'approved',   label: '✓ Approved',    color: '#34D399' },
-    { key: 'rejected',   label: '✕ Rejected',    color: '#F87171' },
-    { key: 'cancelled',  label: '⊘ Cancelled',   color: '#94A3B8' },
+    { key: 'all',        label: 'All Requests' },
+    { key: 'pending',    label: '⏳ Pending',    color: '#b45309' },
+    { key: 'processing', label: '⚡ Processing',  color: '#0369a1' },
+    { key: 'approved',   label: '✓ Approved',    color: '#047857' },
+    { key: 'rejected',   label: '✕ Rejected',    color: '#be123c' },
+    { key: 'cancelled',  label: '⊘ Cancelled',   color: '#475569' },
   ];
 
   return (
-    <div className="app-container page-enter" style={{ maxWidth: '860px' }}>
+    <div className="app-container page-enter" style={{ maxWidth: '880px' }}>
 
-      {/* Toast */}
+      {/* Toast Notification */}
       {toast && (
         <div className="toast-container">
           <div className={`toast toast-${toast.type}`}>
@@ -231,34 +238,34 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
         </div>
       )}
 
-      {/* ── Page Header ── */}
+      {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px', marginBottom: '28px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <button
             onClick={() => onNavigate('/wallet')}
             className="btn-secondary"
-            style={{ padding: '9px 14px', fontSize: '0.83rem' }}
+            style={{ padding: '9px 15px', fontSize: '0.85rem' }}
           >
             <ArrowLeft style={{ width: '15px', height: '15px' }} />
             Wallet
           </button>
           <div>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f0f6ff', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <History style={{ width: '22px', height: '22px', color: '#8B5CF6' }} />
+            <h1 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <History style={{ width: '24px', height: '24px', color: '#7c3aed' }} />
               Withdrawal History
             </h1>
-            <p style={{ color: '#4e6072', fontSize: '0.82rem', marginTop: '2px' }}>
-              Track all your payout requests and their statuses.
+            <p style={{ color: '#475569', fontSize: '0.85rem', marginTop: '2px' }}>
+              Track all payout requests and their live statuses.
             </p>
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div style={{ display: 'flex', gap: '12px' }}>
           <button
             id="withdrawals-refresh-btn"
             onClick={() => loadWithdrawals(page)}
             className="btn-secondary"
-            style={{ fontSize: '0.83rem', padding: '9px 14px' }}
+            style={{ fontSize: '0.85rem', padding: '9px 15px' }}
           >
             <RefreshCw style={{ width: '14px', height: '14px', animation: loading ? 'spin 1s linear infinite' : 'none' }} />
             Refresh
@@ -267,28 +274,28 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
             id="withdrawals-new-payout-btn"
             onClick={() => onNavigate('/payout')}
             className="btn-primary"
-            style={{ fontSize: '0.88rem' }}
+            style={{ fontSize: '0.9rem' }}
           >
             + New Payout
           </button>
         </div>
       </div>
 
-      {/* ── Error Banner ── */}
+      {/* Error Banner */}
       {error && (
         <div className="error-banner">
           <div className="error-banner-content">
-            <AlertTriangle style={{ width: '20px', height: '20px', color: '#F43F5E', flexShrink: 0 }} />
+            <AlertTriangle style={{ width: '20px', height: '20px', color: '#e11d48', flexShrink: 0 }} />
             <p>{error}</p>
           </div>
-          <button onClick={() => loadWithdrawals(page)} className="btn-secondary" style={{ fontSize: '0.82rem', padding: '7px 12px' }}>
+          <button onClick={() => loadWithdrawals(page)} className="btn-secondary" style={{ fontSize: '0.82rem', padding: '7px 12px', color: '#be123c' }}>
             Retry
           </button>
         </div>
       )}
 
-      {/* ── Status Filter Tabs ── */}
-      <div style={{ marginBottom: '20px', overflowX: 'auto', paddingBottom: '4px' }}>
+      {/* Filter Tabs Bar */}
+      <div style={{ marginBottom: '22px', overflowX: 'auto', paddingBottom: '4px' }}>
         <div className="filter-tabs" style={{ width: 'max-content', minWidth: '100%' }}>
           {filterTabs.map(({ key, label, color }) => (
             <button
@@ -304,12 +311,12 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
         </div>
       </div>
 
-      {/* ── List ── */}
-      <div className="glass-card" style={{ padding: '20px' }}>
+      {/* Main List */}
+      <div className="glass-card" style={{ padding: '24px' }}>
         {loading ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="skeleton" style={{ height: '100px', borderRadius: '14px' }} />
+              <div key={i} className="skeleton" style={{ height: '104px', borderRadius: '16px' }} />
             ))}
           </div>
         ) : !data || data.items.length === 0 ? (
@@ -320,33 +327,32 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
             </h3>
             <p>
               {statusFilter === 'all'
-                ? "You haven't made any withdrawal requests yet. Head to the Payout page to get started."
-                : `You have no ${statusFilter} withdrawals. Try another filter or check back later.`}
+                ? "You haven't made any withdrawal requests yet. Head to the Payout page to start redeeming your VEs."
+                : `You currently have no ${statusFilter} withdrawal requests. Try selecting another filter.`}
             </p>
             {statusFilter !== 'all' && (
-              <button className="btn-secondary" style={{ marginTop: '16px' }} onClick={() => handleFilterChange('all')}>
-                Show All
+              <button className="btn-secondary" style={{ marginTop: '18px' }} onClick={() => handleFilterChange('all')}>
+                Show All Requests
               </button>
             )}
             <button
               onClick={() => onNavigate('/payout')}
               className="btn-primary"
-              style={{ marginTop: '16px', fontSize: '0.9rem' }}
+              style={{ marginTop: '18px', fontSize: '0.9rem' }}
             >
-              <ArrowLeft style={{ width: '16px', height: '16px', transform: 'rotate(180deg)' }} />
-              Go to Payout Page
+              Redeem Rewards Now
             </button>
           </div>
         ) : (
           <>
-            {/* Summary counts bar */}
+            {/* Counter bar */}
             {data.total > 0 && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.05)', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.8rem', color: '#4e6072' }}>
-                  Showing <strong style={{ color: '#94a3b8' }}>{data.items.length}</strong> of <strong style={{ color: '#94a3b8' }}>{data.total}</strong> requests
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px', paddingBottom: '16px', borderBottom: '1px solid #e2e8f0', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '0.82rem', color: '#64748b' }}>
+                  Showing <strong style={{ color: '#0f172a' }}>{data.items.length}</strong> of <strong style={{ color: '#0f172a' }}>{data.total}</strong> requests
                 </span>
                 {statusFilter === 'all' && (
-                  <span style={{ fontSize: '0.72rem', color: '#4e6072', marginLeft: 'auto' }}>
+                  <span style={{ fontSize: '0.76rem', color: '#64748b' }}>
                     Page {data.page} of {data.totalPages}
                   </span>
                 )}
@@ -359,17 +365,17 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
 
             {/* Pagination */}
             {data.totalPages > 1 && (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '20px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '22px', paddingTop: '18px', borderTop: '1px solid #e2e8f0' }}>
                 <button
                   id="withdrawals-prev-page"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={data.page <= 1 || loading}
                   className="btn-secondary"
-                  style={{ padding: '8px 14px', fontSize: '0.83rem' }}
+                  style={{ padding: '8px 16px', fontSize: '0.84rem' }}
                 >
                   <ChevronLeft style={{ width: '15px', height: '15px' }} /> Prev
                 </button>
-                <span style={{ fontSize: '0.83rem', color: '#64748B', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.85rem', color: '#0f172a', fontWeight: 800 }}>
                   {data.page} / {data.totalPages}
                 </span>
                 <button
@@ -377,7 +383,7 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
                   onClick={() => setPage((p) => Math.min(data.totalPages, p + 1))}
                   disabled={data.page >= data.totalPages || loading}
                   className="btn-secondary"
-                  style={{ padding: '8px 14px', fontSize: '0.83rem' }}
+                  style={{ padding: '8px 16px', fontSize: '0.84rem' }}
                 >
                   Next <ChevronRight style={{ width: '15px', height: '15px' }} />
                 </button>
@@ -387,12 +393,12 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
         )}
       </div>
 
-      {/* ── Info note ── */}
-      <div className="info-box" style={{ marginTop: '16px' }}>
-        <CheckCircle2 style={{ width: '16px', height: '16px', color: '#06B6D4', flexShrink: 0 }} />
+      {/* Info Notice */}
+      <div className="info-box" style={{ marginTop: '18px' }}>
+        <CheckCircle2 style={{ width: '18px', height: '18px', color: '#0891b2', flexShrink: 0 }} />
         <span>
-          Processing time is normally within <strong style={{ color: '#94a3b8' }}>24 hours</strong>, and up to <strong style={{ color: '#94a3b8' }}>72 hours</strong> for reviewed cases.
-          Only <strong style={{ color: '#94a3b8' }}>pending</strong> withdrawals can be cancelled.
+          Standard processing time is within <strong style={{ color: '#0f172a' }}>24 hours</strong>, and up to <strong style={{ color: '#0f172a' }}>72 hours</strong> for reviewed cases.
+          Only <strong style={{ color: '#0f172a' }}>pending</strong> withdrawals can be cancelled for immediate VEs refund.
         </span>
       </div>
 

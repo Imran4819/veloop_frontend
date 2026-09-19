@@ -28,6 +28,15 @@ export function App() {
   }, [refreshTrigger, currentPath]);
 
   const handleNavigate = (path: string) => {
+    const isLoggedIn = Boolean(localStorage.getItem('veloop_access_token'));
+    
+    // Require login for payout, withdrawals, or protected routes
+    if (!isLoggedIn && (path === '/payout' || path === '/withdrawals')) {
+      setCurrentPath('/login');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     setCurrentPath(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -40,7 +49,7 @@ export function App() {
     localStorage.removeItem('veloop_access_token');
     localStorage.removeItem('veloop_user_profile');
     setWallet(null);
-    handleNavigate('/wallet');
+    handleNavigate('/login');
   };
 
   return (

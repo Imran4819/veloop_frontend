@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sliders, RefreshCw, AlertTriangle, UserCheck, Clock, Layers, Zap } from 'lucide-react';
+import { Sliders, RefreshCw, AlertTriangle, UserCheck, Clock, Layers, Zap, ChevronUp, ChevronDown } from 'lucide-react';
 import { mockBackend } from '../services/mockBackend';
 import { apiClient } from '../services/apiClient';
 import type { DevSettings } from '../types/rewards';
@@ -10,7 +10,7 @@ interface DevControlBarProps {
 
 export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange }) => {
   const [settings, setSettings] = useState<DevSettings>(mockBackend.getSettings());
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const updateSetting = (changes: Partial<DevSettings>) => {
     const updated = mockBackend.updateSettings(changes);
@@ -26,32 +26,33 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange }) =
 
   return (
     <div className="dev-bar">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
         <button 
           onClick={() => setIsOpen(!isOpen)}
           className="btn-secondary" 
-          style={{ padding: '6px 12px', fontSize: '0.8rem', background: '#1E293B', borderColor: '#334155' }}
+          style={{ padding: '6px 14px', fontSize: '0.8rem', background: '#ffffff', borderColor: '#cbd5e1' }}
         >
-          <Sliders style={{ width: '14px', height: '14px', color: '#10B981' }} />
-          <span>Demo Controls {isOpen ? '▲' : '▼'}</span>
+          <Sliders style={{ width: '14px', height: '14px', color: '#059669' }} />
+          <span style={{ fontWeight: 800 }}>Demo &amp; Testing Controls</span>
+          {isOpen ? <ChevronDown style={{ width: '14px', height: '14px' }} /> : <ChevronUp style={{ width: '14px', height: '14px' }} />}
         </button>
 
-        <span style={{ fontSize: '0.78rem', color: '#94A3B8', fontWeight: 600 }}>
-          REST API Testing Panel (Simulates Backend State)
+        <span style={{ fontSize: '0.76rem', color: '#64748b', fontWeight: 600 }}>
+          Simulates REST API responses &amp; edge cases
         </span>
       </div>
 
       {isOpen && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap', width: '100%', marginTop: '8px', paddingTop: '10px', borderTop: '1px solid rgba(226, 232, 240, 0.9)' }}>
           
-          {/* Latency Control */}
+          {/* Latency */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem' }}>
-            <Clock style={{ width: '13px', height: '13px', color: '#64748B' }} />
-            <span style={{ color: '#94A3B8' }}>Latency:</span>
+            <Clock style={{ width: '13px', height: '13px', color: '#64748b' }} />
+            <span style={{ color: '#334155', fontWeight: 700 }}>Latency:</span>
             <select
               value={settings.simulatedDelayMs}
               onChange={(e) => updateSetting({ simulatedDelayMs: Number(e.target.value) })}
-              style={{ background: '#0F172A', color: '#F8FAFC', border: '1px solid #334155', borderRadius: '6px', padding: '3px 8px', fontSize: '0.78rem' }}
+              style={{ background: '#ffffff', color: '#0f172a', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '4px 8px', fontSize: '0.78rem', fontWeight: 600 }}
             >
               <option value={0}>0ms (Instant)</option>
               <option value={600}>600ms (Default)</option>
@@ -59,51 +60,51 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange }) =
             </select>
           </div>
 
-          {/* User Preset Switcher */}
+          {/* User Preset */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem' }}>
-            <UserCheck style={{ width: '13px', height: '13px', color: '#64748B' }} />
-            <span style={{ color: '#94A3B8' }}>User Balance:</span>
+            <UserCheck style={{ width: '13px', height: '13px', color: '#64748b' }} />
+            <span style={{ color: '#334155', fontWeight: 700 }}>Balance Preset:</span>
             <select
               value={settings.userPreset}
               onChange={(e) => updateSetting({ userPreset: e.target.value as 'high' | 'low' })}
-              style={{ background: '#0F172A', color: '#F8FAFC', border: '1px solid #334155', borderRadius: '6px', padding: '3px 8px', fontSize: '0.78rem' }}
+              style={{ background: '#ffffff', color: '#0f172a', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '4px 8px', fontSize: '0.78rem', fontWeight: 600 }}
             >
-              <option value="high">High Balance (2,450 VEs)</option>
+              <option value="high">High Balance (25,000 VEs)</option>
               <option value="low">Low Balance (180 VEs)</option>
             </select>
           </div>
 
-          {/* Empty State Toggle */}
-          <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: '#94A3B8', cursor: 'pointer' }}>
+          {/* Empty History Toggle */}
+          <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: '#334155', fontWeight: 700, cursor: 'pointer' }}>
             <input
               type="checkbox"
               checked={settings.emptyTransactions}
               onChange={(e) => updateSetting({ emptyTransactions: e.target.checked })}
-              style={{ accentColor: '#10B981' }}
+              style={{ accentColor: '#059669' }}
             />
             <Layers style={{ width: '13px', height: '13px' }} />
             Empty History
           </label>
 
           {/* Wallet Error Toggle */}
-          <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: '#94A3B8', cursor: 'pointer' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: '#334155', fontWeight: 700, cursor: 'pointer' }}>
             <input
               type="checkbox"
               checked={settings.forceWalletFetchError}
               onChange={(e) => updateSetting({ forceWalletFetchError: e.target.checked })}
-              style={{ accentColor: '#F43F5E' }}
+              style={{ accentColor: '#e11d48' }}
             />
-            <AlertTriangle style={{ width: '13px', height: '13px', color: '#F43F5E' }} />
-            Force Wallet Error (500)
+            <AlertTriangle style={{ width: '13px', height: '13px', color: '#e11d48' }} />
+            Force 500 Error
           </label>
 
-          {/* Payout Error Injector */}
+          {/* Error Injector */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem' }}>
-            <span style={{ color: '#94A3B8' }}>Payout Error Injector:</span>
+            <span style={{ color: '#334155', fontWeight: 700 }}>Inject Error:</span>
             <select
               value={settings.forcePayoutErrorType}
               onChange={(e) => updateSetting({ forcePayoutErrorType: e.target.value as any })}
-              style={{ background: '#0F172A', color: '#F8FAFC', border: '1px solid #334155', borderRadius: '6px', padding: '3px 8px', fontSize: '0.78rem' }}
+              style={{ background: '#ffffff', color: '#0f172a', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '4px 8px', fontSize: '0.78rem', fontWeight: 600 }}
             >
               <option value="none">None (Normal)</option>
               <option value="insufficient_balance">Insufficient Balance</option>
@@ -113,48 +114,49 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange }) =
             </select>
           </div>
 
-          {/* Quick Add VEs Button */}
+          {/* Quick Credit VEs Button */}
           <button
             onClick={async () => {
               await apiClient.creditWallet(1000);
               onStateChange();
             }}
             style={{
-              background: 'rgba(16, 185, 129, 0.15)',
-              border: '1px solid rgba(16, 185, 129, 0.4)',
-              color: '#34D399',
-              borderRadius: '6px',
-              padding: '4px 10px',
-              fontSize: '0.75rem',
+              background: 'rgba(16, 185, 129, 0.12)',
+              border: '1px solid rgba(16, 185, 129, 0.35)',
+              color: '#047857',
+              borderRadius: '8px',
+              padding: '5px 12px',
+              fontSize: '0.78rem',
+              fontWeight: 800,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px'
+            }}
+          >
+            <Zap style={{ width: '13px', height: '13px', fill: '#059669' }} />
+            + Add 1,000 VEs
+          </button>
+
+          {/* Reset Data Button */}
+          <button
+            onClick={handleReset}
+            style={{
+              background: '#ffffff',
+              border: '1px solid #cbd5e1',
+              color: '#475569',
+              borderRadius: '8px',
+              padding: '5px 12px',
+              fontSize: '0.78rem',
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '4px'
+              gap: '5px'
             }}
           >
-            <Zap style={{ width: '12px', height: '12px', fill: '#34D399' }} />
-            + Add 1,000 VEs
-          </button>
-
-          {/* Reset Button */}
-          <button
-            onClick={handleReset}
-            style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid #334155',
-              color: '#CBD5E1',
-              borderRadius: '6px',
-              padding: '4px 10px',
-              fontSize: '0.75rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px'
-            }}
-          >
-            <RefreshCw style={{ width: '12px', height: '12px' }} />
-            Reset Data
+            <RefreshCw style={{ width: '13px', height: '13px' }} />
+            Reset Demo Data
           </button>
         </div>
       )}
