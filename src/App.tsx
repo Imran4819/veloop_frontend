@@ -9,12 +9,18 @@ import { apiClient } from './services/apiClient';
 import type { UserWallet } from './types/rewards';
 
 export function App() {
-  const [currentPath, setCurrentPath] = useState<string>('/wallet');
+  const [currentPath, setCurrentPath] = useState<string>(() => {
+    return localStorage.getItem('veloop_access_token') ? '/wallet' : '/login';
+  });
 
   const [wallet, setWallet] = useState<UserWallet | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const fetchGlobalWallet = async () => {
+    if (!localStorage.getItem('veloop_access_token')) {
+      setWallet(null);
+      return;
+    }
     try {
       const data = await apiClient.getWallet();
       setWallet(data);
@@ -30,8 +36,8 @@ export function App() {
   const handleNavigate = (path: string) => {
     const isLoggedIn = Boolean(localStorage.getItem('veloop_access_token'));
     
-    // Require login for payout, withdrawals, or protected routes
-    if (!isLoggedIn && (path === '/payout' || path === '/withdrawals')) {
+    // Require login for any page other than login itself
+    if (!isLoggedIn && path !== '/login') {
       setCurrentPath('/login');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
@@ -49,7 +55,7 @@ export function App() {
     localStorage.removeItem('veloop_access_token');
     localStorage.removeItem('veloop_user_profile');
     setWallet(null);
-    handleNavigate('/login');
+    setCurrentPath('/login');
   };
 
   return (
@@ -101,7 +107,7 @@ export function App() {
 
       {/* Dev Testing Control Bar */}
       {currentPath !== '/login' && (
-        <DevControlBar onStateChange={handleStateChange} />
+        <DevControlBar onStateChange={handleStateChange} onNavigate={handleNavigate} />
       )}
     </div>
   );

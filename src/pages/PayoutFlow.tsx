@@ -58,6 +58,10 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
   const [loading, setLoading] = useState(true);
 
   const loadPayoutData = async () => {
+    if (!localStorage.getItem('veloop_access_token')) {
+      onNavigate('/login');
+      return;
+    }
     setLoading(true);
     setApiError(null);
     try {
@@ -131,6 +135,11 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
   };
 
   const handleFinalSubmit = async () => {
+    if (!localStorage.getItem('veloop_access_token')) {
+      setShowConfirmModal(false);
+      onNavigate('/login');
+      return;
+    }
     if (!selectedMethodId || !selectedDenom || !recipientDetail) return;
     setIsSubmitting(true);
     setApiError(null);

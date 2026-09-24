@@ -177,6 +177,10 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
   };
 
   const loadWithdrawals = useCallback(async (targetPage = 1, filter: StatusFilter = statusFilter) => {
+    if (!localStorage.getItem('veloop_access_token')) {
+      onNavigate('/login');
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -187,19 +191,27 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
     } finally {
       setLoading(false);
     }
-  }, [statusFilter]);
+  }, [statusFilter, onNavigate]);
 
   useEffect(() => {
     loadWithdrawals(page, statusFilter);
   }, [page, statusFilter]);
 
   const handleFilterChange = (f: StatusFilter) => {
+    if (!localStorage.getItem('veloop_access_token')) {
+      onNavigate('/login');
+      return;
+    }
     setStatusFilter(f);
     setPage(1);
     loadWithdrawals(1, f);
   };
 
   const handleCancel = async (id: string) => {
+    if (!localStorage.getItem('veloop_access_token')) {
+      onNavigate('/login');
+      return;
+    }
     if (!window.confirm('Are you sure you want to cancel this withdrawal request? Your VEs will be restored to your balance.')) return;
     setCancelling(id);
     try {

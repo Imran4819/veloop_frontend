@@ -6,9 +6,10 @@ import type { DevSettings } from '../types/rewards';
 
 interface DevControlBarProps {
   onStateChange: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange }) => {
+export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange, onNavigate }) => {
   const [settings, setSettings] = useState<DevSettings>(mockBackend.getSettings());
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -19,6 +20,10 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange }) =
   };
 
   const handleReset = () => {
+    if (!localStorage.getItem('veloop_access_token')) {
+      if (onNavigate) onNavigate('/login');
+      return;
+    }
     mockBackend.resetData();
     setSettings(mockBackend.getSettings());
     onStateChange();
@@ -117,6 +122,10 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange }) =
           {/* Quick Credit VEs Button */}
           <button
             onClick={async () => {
+              if (!localStorage.getItem('veloop_access_token')) {
+                if (onNavigate) onNavigate('/login');
+                return;
+              }
               await apiClient.creditWallet(1000);
               onStateChange();
             }}

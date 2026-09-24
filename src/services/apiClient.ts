@@ -35,6 +35,9 @@ const isNetworkError = (err: any): boolean =>
 let _lastApiStatus: 'live' | 'mock' | 'unknown' = 'unknown';
 export const getApiStatus = () => _lastApiStatus;
 
+// ─── Auth Helper ───
+export const isUserLoggedIn = (): boolean => Boolean(localStorage.getItem('veloop_access_token'));
+
 // ─── API Client ───
 export const apiClient = {
 
@@ -92,6 +95,7 @@ export const apiClient = {
 
   // Fetch logged-in user profile from GET /auth/me and cache it
   async getUserProfile(): Promise<any | null> {
+    if (!isUserLoggedIn()) return null;
     try {
       const res = await fetch(`${API_BASE_URL}/auth/me`, { headers: getAuthHeaders() });
       if (res.ok) {
@@ -124,6 +128,9 @@ export const apiClient = {
   // ── Wallet ────────────────────────────────────────────────────
 
   async getWallet(): Promise<UserWallet> {
+    if (!isUserLoggedIn()) {
+      throw new Error('User is not logged in. Please log in first.');
+    }
     // Try to refresh profile from backend first (non-blocking)
     if (localStorage.getItem('veloop_access_token') && localStorage.getItem('veloop_access_token') !== 'mock_demo_token') {
       this.getUserProfile().catch(() => {});
@@ -167,6 +174,9 @@ export const apiClient = {
   },
 
   async creditWallet(amount = 1000): Promise<any> {
+    if (!isUserLoggedIn()) {
+      throw new Error('User is not logged in. Please log in first.');
+    }
     try {
       const res = await fetch(`${API_BASE_URL}/wallet/credit`, {
         method: 'POST',
@@ -193,6 +203,9 @@ export const apiClient = {
   },
 
   async getTransactions(page = 1, limit = 5): Promise<PaginatedTransactions> {
+    if (!isUserLoggedIn()) {
+      throw new Error('User is not logged in. Please log in first.');
+    }
     try {
       const res = await fetch(`${API_BASE_URL}/wallet/transactions?page=${page}&limit=${limit}`, {
         headers: getAuthHeaders(),
@@ -233,6 +246,9 @@ export const apiClient = {
   // ── Payout Methods ────────────────────────────────────────────
 
   async getPayoutMethods(): Promise<PayoutMethod[]> {
+    if (!isUserLoggedIn()) {
+      throw new Error('User is not logged in. Please log in first.');
+    }
     try {
       const res = await fetch(`${API_BASE_URL}/payout/methods`, { headers: getAuthHeaders() });
       if (res.ok) {
@@ -278,6 +294,9 @@ export const apiClient = {
   },
 
   async getDenominations(methodId?: string): Promise<PayoutDenomination[]> {
+    if (!isUserLoggedIn()) {
+      throw new Error('User is not logged in. Please log in first.');
+    }
     try {
       const params = new URLSearchParams();
       if (methodId) params.set('type', methodId);
@@ -314,6 +333,9 @@ export const apiClient = {
   // ── Withdrawals ───────────────────────────────────────────────
 
   async submitPayout(payload: PayoutRequestPayload): Promise<PayoutResponse> {
+    if (!isUserLoggedIn()) {
+      throw new Error('User is not logged in. Please log in first.');
+    }
     try {
       const body = {
         payoutOptionId: payload.denominationId,
@@ -362,6 +384,9 @@ export const apiClient = {
     page = 1,
     limit = 10
   ): Promise<PaginatedWithdrawals> {
+    if (!isUserLoggedIn()) {
+      throw new Error('User is not logged in. Please log in first.');
+    }
     try {
       const params = new URLSearchParams({ page: String(page), limit: String(limit) });
       if (status && status !== 'all') params.set('status', status.toUpperCase());
@@ -414,6 +439,9 @@ export const apiClient = {
   },
 
   async cancelWithdrawal(id: string): Promise<{ success: boolean; message: string }> {
+    if (!isUserLoggedIn()) {
+      throw new Error('User is not logged in. Please log in first.');
+    }
     try {
       const res = await fetch(`${API_BASE_URL}/withdrawals/${id}/cancel`, {
         method: 'POST',

@@ -208,6 +208,10 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
   const [loaded, setLoaded] = useState(false);
 
   const loadData = async (targetPage = page) => {
+    if (!localStorage.getItem('veloop_access_token')) {
+      onNavigate('/login');
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
