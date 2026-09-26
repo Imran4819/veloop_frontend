@@ -81,7 +81,7 @@ export const LoginDemo: React.FC<LoginDemoProps> = ({ onLoginSuccess, onNavigate
             <Zap style={{ color: '#fff', width: '28px', height: '28px' }} />
           </div>
           <h1 className="login-hero-title">
-            VELoop <span style={{ color: '#059669' }}>Rewards</span>
+            VELoop <span style={{ color: '#34d399' }}>Rewards</span>
           </h1>
           <p className="login-hero-sub">
             Backend-Driven Rewards &amp; Instant Payout Portal
@@ -149,9 +149,9 @@ export const LoginDemo: React.FC<LoginDemoProps> = ({ onLoginSuccess, onNavigate
             padding: '10px 14px', borderRadius: '12px', marginBottom: '14px',
             fontSize: '0.84rem', fontWeight: 700,
             display: 'flex', alignItems: 'center', gap: '8px',
-            background: statusMsg.type === 'success' ? '#ecfdf5' : '#fef2f2',
-            border: `1px solid ${statusMsg.type === 'success' ? 'rgba(16,185,129,0.35)' : 'rgba(244,63,94,0.35)'}`,
-            color: statusMsg.type === 'success' ? '#065f46' : '#9f1239',
+            background: statusMsg.type === 'success' ? 'rgba(6, 78, 59, 0.4)' : 'rgba(136, 19, 55, 0.4)',
+            border: `1px solid ${statusMsg.type === 'success' ? 'rgba(16,185,129,0.5)' : 'rgba(244,63,94,0.5)'}`,
+            color: statusMsg.type === 'success' ? '#a7f3d0' : '#fecdd3',
             animation: 'slideDown 0.3s ease-out',
           }}>
             {statusMsg.type === 'success'
@@ -177,7 +177,7 @@ export const LoginDemo: React.FC<LoginDemoProps> = ({ onLoginSuccess, onNavigate
                   style={{ paddingLeft: '44px' }}
                   required
                 />
-                <Mail style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', width: '18px', height: '18px', color: '#64748b' }} />
+                <Mail style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', width: '18px', height: '18px', color: '#94a3b8' }} />
               </div>
             </div>
 
@@ -194,7 +194,7 @@ export const LoginDemo: React.FC<LoginDemoProps> = ({ onLoginSuccess, onNavigate
                   style={{ paddingLeft: '44px' }}
                   required
                 />
-                <Lock style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', width: '18px', height: '18px', color: '#64748b' }} />
+                <Lock style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', width: '18px', height: '18px', color: '#94a3b8' }} />
               </div>
             </div>
 
@@ -203,8 +203,8 @@ export const LoginDemo: React.FC<LoginDemoProps> = ({ onLoginSuccess, onNavigate
               <ArrowRight style={{ width: '18px', height: '18px' }} />
             </button>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px', fontSize: '0.74rem', color: '#64748b', justifyContent: 'center' }}>
-              <ShieldCheck style={{ width: '14px', height: '14px', color: '#059669' }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px', fontSize: '0.74rem', color: '#94a3b8', justifyContent: 'center' }}>
+              <ShieldCheck style={{ width: '14px', height: '14px', color: '#34d399' }} />
               JWT secured · Live backend validation enabled
             </div>
           </form>

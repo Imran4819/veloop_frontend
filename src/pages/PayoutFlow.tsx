@@ -16,7 +16,7 @@ interface PayoutFlowProps {
 // ─── Confetti Animation ─────────────────────────────────────────────────────
 const Confetti: React.FC = () => {
   const pieces = Array.from({ length: 24 });
-  const colors = ['#059669', '#10B981', '#7C3AED', '#D97706', '#0891B2', '#E11D48'];
+  const colors = ['#10B981', '#34D399', '#A78BFA', '#FBBF24', '#22D3EE', '#FB7185'];
   return (
     <>
       {pieces.map((_, i) => (
@@ -186,47 +186,47 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
 
           <div style={{
             width: '80px', height: '80px', borderRadius: '50%',
-            background: 'rgba(16, 185, 129, 0.14)',
-            border: '2px solid #059669',
+            background: 'rgba(16, 185, 129, 0.2)',
+            border: '2px solid #10b981',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 22px', color: '#059669',
-            boxShadow: '0 4px 20px rgba(5,150,105,0.2)',
+            margin: '0 auto 22px', color: '#34d399',
+            boxShadow: '0 0 30px rgba(16, 185, 129, 0.4)',
           }}>
             <CheckCircle2 style={{ width: '46px', height: '46px' }} />
           </div>
 
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f172a', marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#f8fafc', marginBottom: '8px' }}>
             Withdrawal Request Submitted!
           </h2>
 
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 16px', borderRadius: '30px', background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.3)', color: '#b45309', fontSize: '0.78rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '22px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 16px', borderRadius: '30px', background: 'rgba(245,158,11,0.18)', border: '1px solid rgba(245,158,11,0.4)', color: '#fde047', fontSize: '0.78rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '22px' }}>
             <span className="pulse-dot" style={{ width: '6px', height: '6px' }} />
             Status: Pending Review
           </div>
 
-          <p style={{ color: '#475569', fontSize: '0.94rem', marginBottom: '28px', lineHeight: 1.7 }}>
+          <p style={{ color: '#94a3b8', fontSize: '0.94rem', marginBottom: '28px', lineHeight: 1.7 }}>
             Your redemption of{' '}
-            <strong style={{ color: '#0f172a' }}>₹{payoutResult.payoutAmount}</strong>{' '}
-            via <strong style={{ color: '#0f172a' }}>{selectedMethod?.title}</strong> has been logged into the queue.
+            <strong style={{ color: '#f8fafc' }}>₹{payoutResult.payoutAmount}</strong>{' '}
+            via <strong style={{ color: '#f8fafc' }}>{selectedMethod?.title}</strong> has been logged into the queue.
           </p>
 
           <div style={{
-            background: '#f8fafc', border: '1px solid #e2e8f0',
+            background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '18px', padding: '22px', textAlign: 'left', marginBottom: '30px',
           }}>
             {[
               { label: 'Transaction Reference', value: `#${payoutResult.transactionId}`, mono: true },
               { label: 'Recipient Address', value: recipientDetail, mono: true },
-              { label: 'VEs Deducted', value: `-${payoutResult.requiredVEs.toLocaleString()} VEs`, color: '#e11d48' },
+              { label: 'VEs Deducted', value: `-${payoutResult.requiredVEs.toLocaleString()} VEs`, color: '#fda4af' },
             ].map(({ label, value, mono, color }) => (
-              <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '9px 0', borderBottom: '1px solid #e2e8f0', fontSize: '0.86rem' }}>
-                <span style={{ color: '#64748b' }}>{label}:</span>
-                <span style={{ fontFamily: mono ? 'var(--font-mono)' : undefined, fontWeight: 800, color: color || '#0f172a', fontSize: mono ? '0.8rem' : undefined }}>{value}</span>
+              <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '9px 0', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', fontSize: '0.86rem' }}>
+                <span style={{ color: '#94a3b8' }}>{label}:</span>
+                <span style={{ fontFamily: mono ? 'var(--font-mono)' : undefined, fontWeight: 800, color: color || '#f8fafc', fontSize: mono ? '0.8rem' : undefined }}>{value}</span>
               </div>
             ))}
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '12px', fontSize: '0.9rem' }}>
-              <span style={{ color: '#64748b' }}>Remaining VEs Balance:</span>
-              <span style={{ fontWeight: 900, color: '#047857', fontFamily: 'var(--font-mono)' }}>{payoutResult.newVeBalance.toLocaleString()} VEs</span>
+              <span style={{ color: '#94a3b8' }}>Remaining VEs Balance:</span>
+              <span style={{ fontWeight: 900, color: '#34d399', fontFamily: 'var(--font-mono)' }}>{payoutResult.newVeBalance.toLocaleString()} VEs</span>
             </div>
           </div>
 
@@ -261,10 +261,10 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
         </button>
 
         {wallet && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', color: '#475569' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', color: '#94a3b8' }}>
             <span>Available:</span>
             <div className="ves-chip" style={{ fontSize: '0.85rem', padding: '5px 12px 5px 9px' }}>
-              <Zap style={{ width: '14px', height: '14px', fill: '#059669', color: '#059669' }} />
+              <Zap style={{ width: '14px', height: '14px', fill: '#34d399', color: '#34d399' }} />
               <span>{wallet.balances.VEs.toLocaleString()}</span>
               <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>VEs</span>
             </div>
@@ -276,10 +276,10 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
       {apiError && (
         <div className="error-banner" style={{ marginBottom: '22px' }}>
           <div className="error-banner-content">
-            <AlertTriangle style={{ width: '20px', height: '20px', color: '#e11d48', flexShrink: 0 }} />
+            <AlertTriangle style={{ width: '20px', height: '20px', color: '#fda4af', flexShrink: 0 }} />
             <p>{apiError}</p>
           </div>
-          <button onClick={() => setApiError(null)} style={{ background: 'none', border: 'none', color: '#be123c', cursor: 'pointer', padding: '4px' }}>
+          <button onClick={() => setApiError(null)} style={{ background: 'none', border: 'none', color: '#fda4af', cursor: 'pointer', padding: '4px' }}>
             <X style={{ width: '18px', height: '18px' }} />
           </button>
         </div>
@@ -305,8 +305,8 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
       {/* ─────────────────── STEP 1: METHOD ─────────────────── */}
       {step === 1 && (
         <div className="glass-card page-enter" style={{ padding: '32px' }}>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#0f172a', marginBottom: '6px' }}>Choose Redemption Method</h2>
-          <p style={{ color: '#475569', fontSize: '0.88rem', marginBottom: '26px' }}>Select how you would like to receive your payout funds.</p>
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#f8fafc', marginBottom: '6px' }}>Choose Redemption Method</h2>
+          <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginBottom: '26px' }}>Select how you would like to receive your payout funds.</p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {methods.map((m) => {
@@ -320,38 +320,38 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
                   style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     padding: '20px 22px', borderRadius: '18px',
-                    background: isSelected ? 'rgba(236, 253, 245, 0.85)' : '#ffffff',
-                    border: `1.5px solid ${isSelected ? '#059669' : isActive ? 'rgba(226,232,240,0.9)' : 'rgba(226,232,240,0.5)'}`,
+                    background: isSelected ? 'rgba(16, 185, 129, 0.18)' : 'rgba(15, 23, 42, 0.7)',
+                    border: `1.5px solid ${isSelected ? '#10b981' : isActive ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)'}`,
                     cursor: isActive ? 'pointer' : 'not-allowed',
                     opacity: isActive ? 1 : 0.55,
                     transition: 'all 0.22s ease',
-                    boxShadow: isSelected ? '0 8px 24px rgba(5,150,105,0.14)' : '0 2px 8px rgba(15,23,42,0.03)',
+                    boxShadow: isSelected ? '0 8px 30px rgba(16,185,129,0.25)' : '0 2px 8px rgba(0,0,0,0.3)',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
                     <div style={{
                       width: '52px', height: '52px', borderRadius: '14px',
-                      background: isActive ? 'rgba(16, 185, 129, 0.12)' : 'rgba(241, 245, 249, 0.9)',
-                      color: isActive ? '#059669' : '#64748b',
+                      background: isActive ? 'rgba(16, 185, 129, 0.2)' : 'rgba(30, 41, 59, 0.8)',
+                      color: isActive ? '#34d399' : '#94a3b8',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      border: isActive ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(226,232,240,0.9)',
+                      border: isActive ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(255,255,255,0.1)',
                     }}>
                       {renderMethodIcon(m.iconName, 24)}
                     </div>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                        <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#0f172a' }}>{m.title}</span>
+                        <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#f8fafc' }}>{m.title}</span>
                         <span className={`badge badge-${m.status}`} style={{ fontSize: '0.64rem' }}>{m.status}</span>
                       </div>
-                      <div style={{ fontSize: '0.84rem', color: '#475569' }}>{m.subtitle}</div>
+                      <div style={{ fontSize: '0.84rem', color: '#94a3b8' }}>{m.subtitle}</div>
                       {!isActive && m.statusReason && (
-                        <div style={{ fontSize: '0.76rem', color: '#e11d48', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '5px', fontWeight: 700 }}>
+                        <div style={{ fontSize: '0.76rem', color: '#fda4af', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '5px', fontWeight: 700 }}>
                           <Lock style={{ width: '12px', height: '12px' }} /> {m.statusReason}
                         </div>
                       )}
                     </div>
                   </div>
-                  {isActive && <ChevronRight style={{ width: '22px', height: '22px', color: '#64748b' }} />}
+                  {isActive && <ChevronRight style={{ width: '22px', height: '22px', color: '#94a3b8' }} />}
                 </div>
               );
             })}
@@ -363,12 +363,12 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
       {step === 2 && selectedMethod && (
         <div className="glass-card page-enter" style={{ padding: '32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '24px' }}>
-            <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.12)', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(16,185,129,0.3)' }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(16,185,129,0.4)' }}>
               {renderMethodIcon(selectedMethod.iconName, 22)}
             </div>
             <div>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#0f172a' }}>Select {selectedMethod.title} Denomination</h2>
-              <div style={{ fontSize: '0.82rem', color: '#475569' }}>VEs will be deducted upon confirmation • Minimum payout ₹10</div>
+              <h2 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#f8fafc' }}>Select {selectedMethod.title} Denomination</h2>
+              <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>VEs will be deducted upon confirmation • Minimum payout ₹10</div>
             </div>
           </div>
 
@@ -388,22 +388,22 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
                   {d.popular && (
                     <div style={{
                       position: 'absolute', top: '10px', right: '10px',
-                      background: 'linear-gradient(135deg, #059669, #047857)',
+                      background: 'linear-gradient(135deg, #10b981, #059669)',
                       color: '#FFF', fontSize: '0.6rem', fontWeight: 900,
                       padding: '2px 8px', borderRadius: '10px',
                       display: 'flex', alignItems: 'center', gap: '3px',
-                      boxShadow: '0 2px 8px rgba(5,150,105,0.25)',
+                      boxShadow: '0 2px 10px rgba(16,185,129,0.4)',
                     }}>
                       <Star style={{ width: '9px', height: '9px', fill: '#FFF' }} /> POPULAR
                     </div>
                   )}
 
-                  <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f172a', marginBottom: '6px', fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#f8fafc', marginBottom: '6px', fontFamily: 'var(--font-mono)' }}>
                     ₹{d.payoutAmount}
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.85rem', color: canAfford ? '#047857' : '#be123c', fontWeight: 900, marginBottom: '10px' }}>
-                    <Zap style={{ width: '14px', height: '14px', fill: canAfford ? '#059669' : '#be123c' }} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.85rem', color: canAfford ? '#34d399' : '#fda4af', fontWeight: 900, marginBottom: '10px' }}>
+                    <Zap style={{ width: '14px', height: '14px', fill: canAfford ? '#34d399' : '#fda4af' }} />
                     {d.requiredVEs.toLocaleString()} VEs
                   </div>
 
@@ -413,14 +413,14 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
                         className="denom-progress-fill"
                         style={{
                           width: `${usageRatio}%`,
-                          background: usageRatio > 70 ? '#d97706' : '#059669',
+                          background: usageRatio > 70 ? '#fbbf24' : '#10b981',
                         }}
                       />
                     </div>
                   )}
 
                   {!canAfford && (
-                    <div style={{ fontSize: '0.72rem', color: '#e11d48', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '4px', marginTop: '6px' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#fda4af', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '4px', marginTop: '6px' }}>
                       <AlertTriangle style={{ width: '12px', height: '12px' }} />
                       Need {missingVEs.toLocaleString()} more
                     </div>
@@ -435,13 +435,13 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
       {/* ─────────────────── STEP 3: DETAILS ─────────────────── */}
       {step === 3 && selectedMethod && selectedDenom && (
         <form onSubmit={handleProceedToConfirm} className="glass-card page-enter" style={{ padding: '32px' }}>
-          <h2 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#0f172a', marginBottom: '6px' }}>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#f8fafc', marginBottom: '6px' }}>
             Enter {selectedMethod.title} Details
           </h2>
-          <p style={{ color: '#475569', fontSize: '0.88rem', marginBottom: '24px' }}>
-            Redemption value: <strong style={{ color: '#047857' }}>₹{selectedDenom.payoutAmount}</strong>
+          <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginBottom: '24px' }}>
+            Redemption value: <strong style={{ color: '#34d399' }}>₹{selectedDenom.payoutAmount}</strong>
             {' '}•{' '}
-            Deducts: <strong style={{ color: '#e11d48', fontFamily: 'var(--font-mono)' }}>{selectedDenom.requiredVEs.toLocaleString()} VEs</strong>
+            Deducts: <strong style={{ color: '#fda4af', fontFamily: 'var(--font-mono)' }}>{selectedDenom.requiredVEs.toLocaleString()} VEs</strong>
           </p>
 
           <div className="input-group">
@@ -474,7 +474,7 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
           )}
 
           <div className="info-box" style={{ marginBottom: '26px' }}>
-            <Info style={{ width: '16px', height: '16px', color: '#0891b2', flexShrink: 0 }} />
+            <Info style={{ width: '16px', height: '16px', color: '#22d3ee', flexShrink: 0 }} />
             <span>{selectedMethod.instructions}</span>
           </div>
 
@@ -490,20 +490,20 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
         <div className="modal-overlay">
           <div className="modal-content">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '22px' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a' }}>Confirm Payout Request</h3>
-              <button onClick={() => setShowConfirmModal(false)} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '4px', borderRadius: '6px' }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#f8fafc' }}>Confirm Payout Request</h3>
+              <button onClick={() => setShowConfirmModal(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px', borderRadius: '6px' }}>
                 <X style={{ width: '20px', height: '20px' }} />
               </button>
             </div>
 
-            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '18px', padding: '24px', marginBottom: '22px' }}>
-              <div style={{ textAlign: 'center', marginBottom: '18px', paddingBottom: '18px', borderBottom: '1px solid #e2e8f0' }}>
-                <div style={{ fontSize: '0.76rem', color: '#64748b', marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '0.6px', fontWeight: 800 }}>Total Payout Amount</div>
-                <div style={{ fontSize: '2.5rem', fontWeight: 900, color: '#059669', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ background: 'rgba(15, 23, 42, 0.85)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '18px', padding: '24px', marginBottom: '22px' }}>
+              <div style={{ textAlign: 'center', marginBottom: '18px', paddingBottom: '18px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <div style={{ fontSize: '0.76rem', color: '#94a3b8', marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '0.6px', fontWeight: 800 }}>Total Payout Amount</div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 900, color: '#34d399', fontFamily: 'var(--font-mono)' }}>
                   ₹{selectedDenom.payoutAmount}
                 </div>
-                <div style={{ fontSize: '0.84rem', color: '#e11d48', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '6px' }}>
-                  <Zap style={{ width: '14px', height: '14px', fill: '#e11d48' }} />
+                <div style={{ fontSize: '0.84rem', color: '#fda4af', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '6px' }}>
+                  <Zap style={{ width: '14px', height: '14px', fill: '#fda4af' }} />
                   Deducts {selectedDenom.requiredVEs.toLocaleString()} VEs
                 </div>
               </div>
@@ -513,14 +513,14 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
                 { label: 'Recipient Detail', value: recipientDetail, mono: true },
                 { label: 'Est. Processing', value: 'Instant - 24h normal review' },
               ].map(({ label, value, mono }) => (
-                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #e2e8f0', fontSize: '0.86rem' }}>
-                  <span style={{ color: '#64748b' }}>{label}:</span>
-                  <strong style={{ color: '#0f172a', fontFamily: mono ? 'var(--font-mono)' : undefined, fontSize: mono ? '0.8rem' : undefined }}>{value}</strong>
+                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', fontSize: '0.86rem' }}>
+                  <span style={{ color: '#94a3b8' }}>{label}:</span>
+                  <strong style={{ color: '#f8fafc', fontFamily: mono ? 'var(--font-mono)' : undefined, fontSize: mono ? '0.8rem' : undefined }}>{value}</strong>
                 </div>
               ))}
             </div>
 
-            <div style={{ fontSize: '0.78rem', color: '#64748b', marginBottom: '20px', textAlign: 'center' }}>
+            <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginBottom: '20px', textAlign: 'center' }}>
               ⚠ The backend will validate balance and details. Action cannot be undone.
             </div>
 

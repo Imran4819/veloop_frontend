@@ -12,13 +12,13 @@ interface WithdrawalsPageProps {
   onWalletRefresh: () => void;
 }
 
-// ─── Status Config (Light) ──────────────────────────────────────────────────
+// ─── Status Config (Dark Glow) ──────────────────────────────────────────────
 const STATUS_CONFIG: Record<WithdrawalStatus, { label: string; color: string; bg: string; border: string; Icon: React.ElementType }> = {
-  pending:    { label: 'Pending',    color: '#b45309', bg: 'rgba(245,158,11,0.12)',   border: 'rgba(245,158,11,0.3)',   Icon: Clock },
-  processing: { label: 'Processing', color: '#0369a1', bg: 'rgba(6,182,212,0.12)',    border: 'rgba(6,182,212,0.3)',    Icon: RefreshCw },
-  approved:   { label: 'Approved',   color: '#047857', bg: 'rgba(16,185,129,0.12)',   border: 'rgba(16,185,129,0.3)',   Icon: CheckCircle2 },
-  rejected:   { label: 'Rejected',   color: '#be123c', bg: 'rgba(244,63,94,0.12)',    border: 'rgba(244,63,94,0.3)',    Icon: XCircle },
-  cancelled:  { label: 'Cancelled',  color: '#475569', bg: 'rgba(148,163,184,0.12)',  border: 'rgba(148,163,184,0.25)', Icon: Ban },
+  pending:    { label: 'Pending',    color: '#fde047', bg: 'rgba(245, 158, 11, 0.18)', border: 'rgba(245, 158, 11, 0.4)', Icon: Clock },
+  processing: { label: 'Processing', color: '#38bdf8', bg: 'rgba(6, 182, 212, 0.18)',  border: 'rgba(6, 182, 212, 0.4)',  Icon: RefreshCw },
+  approved:   { label: 'Approved',   color: '#34d399', bg: 'rgba(16, 185, 129, 0.18)', border: 'rgba(16, 185, 129, 0.4)', Icon: CheckCircle2 },
+  rejected:   { label: 'Rejected',   color: '#fda4af', bg: 'rgba(244, 63, 94, 0.18)',  border: 'rgba(244, 63, 94, 0.4)',  Icon: XCircle },
+  cancelled:  { label: 'Cancelled',  color: '#cbd5e1', bg: 'rgba(148, 163, 184, 0.18)', border: 'rgba(148, 163, 184, 0.3)', Icon: Ban },
 };
 
 const METHOD_ICONS: Record<string, React.ElementType> = {
@@ -28,9 +28,9 @@ const METHOD_ICONS: Record<string, React.ElementType> = {
 };
 
 const METHOD_COLORS: Record<string, string> = {
-  upi: '#059669',
-  amazon_gift: '#d97706',
-  google_play: '#7c3aed',
+  upi: '#34d399',
+  amazon_gift: '#fbbf24',
+  google_play: '#c084fc',
 };
 
 // ─── Withdrawal Timeline Card Component ─────────────────────────────────────
@@ -41,7 +41,7 @@ const WithdrawalCard: React.FC<{
 }> = ({ w, onCancel, cancelling }) => {
   const sc = STATUS_CONFIG[w.status] ?? STATUS_CONFIG.pending;
   const MethodIcon = METHOD_ICONS[w.method] ?? Smartphone;
-  const methodColor = METHOD_COLORS[w.method] ?? '#059669';
+  const methodColor = METHOD_COLORS[w.method] ?? '#34d399';
   const isCancelling = cancelling === w.id;
 
   return (
@@ -50,10 +50,10 @@ const WithdrawalCard: React.FC<{
       style={{
         padding: '20px',
         borderRadius: '16px',
-        background: '#ffffff',
-        border: '1px solid rgba(226, 232, 240, 0.9)',
+        background: 'rgba(15, 23, 42, 0.65)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
         marginBottom: '12px',
-        boxShadow: '0 2px 8px rgba(15, 23, 42, 0.03)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
         transition: 'all 0.2s ease',
       }}
     >
@@ -61,11 +61,11 @@ const WithdrawalCard: React.FC<{
         {/* Method Icon */}
         <div style={{
           width: '48px', height: '48px', borderRadius: '14px', flexShrink: 0,
-          background: `rgba(${methodColor === '#059669' ? '5,150,105' : methodColor === '#d97706' ? '217,119,6' : '124,58,237'}, 0.12)`,
-          border: `1px solid ${methodColor}40`,
+          background: `rgba(${methodColor === '#34d399' ? '52,211,153' : methodColor === '#fbbf24' ? '251,191,36' : '192,132,252'}, 0.16)`,
+          border: `1px solid ${methodColor}50`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           color: methodColor,
-          boxShadow: '0 2px 8px rgba(15,23,42,0.04)',
+          boxShadow: `0 0 14px ${methodColor}30`,
         }}>
           <MethodIcon style={{ width: '24px', height: '24px' }} />
         </div>
@@ -73,9 +73,9 @@ const WithdrawalCard: React.FC<{
         <div style={{ flex: 1, minWidth: 0 }}>
           {/* Header Row */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '6px' }}>
-            <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0f172a' }}>{w.methodLabel}</div>
+            <div style={{ fontWeight: 800, fontSize: '1rem', color: '#f8fafc' }}>{w.methodLabel}</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span className="tabular-num" style={{ fontWeight: 900, fontSize: '1.15rem', color: '#0f172a' }}>
+              <span className="tabular-num" style={{ fontWeight: 900, fontSize: '1.15rem', color: '#f8fafc' }}>
                 {w.currencySymbol}{w.payoutAmount}
               </span>
               <span style={{
@@ -92,12 +92,12 @@ const WithdrawalCard: React.FC<{
           </div>
 
           {/* Details Row */}
-          <div style={{ fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-            <span>To: <strong style={{ color: '#334155', fontFamily: 'var(--font-mono)', fontSize: '0.74rem' }}>{w.recipientDetail}</strong></span>
+          <div style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <span>To: <strong style={{ color: '#f8fafc', fontFamily: 'var(--font-mono)', fontSize: '0.74rem' }}>{w.recipientDetail}</strong></span>
             <span>•</span>
             <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Zap style={{ width: '12px', height: '12px', color: '#e11d48' }} />
-              <span style={{ color: '#e11d48', fontWeight: 800 }}>{w.requiredVEs.toLocaleString()} VEs</span>
+              <Zap style={{ width: '12px', height: '12px', color: '#fda4af' }} />
+              <span style={{ color: '#fda4af', fontWeight: 800 }}>{w.requiredVEs.toLocaleString()} VEs</span>
             </span>
             {w.transactionId && (
               <>
@@ -108,17 +108,17 @@ const WithdrawalCard: React.FC<{
           </div>
 
           {/* Dates */}
-          <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '6px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <div style={{ fontSize: '0.74rem', color: '#94a3b8', marginTop: '6px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
             <span>
               Requested:{' '}
-              <span style={{ color: '#334155', fontWeight: 600 }}>
+              <span style={{ color: '#cbd5e1', fontWeight: 600 }}>
                 {new Date(w.requestedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
               </span>
             </span>
             {w.processedAt && (
               <span>
                 Processed:{' '}
-                <span style={{ color: '#334155', fontWeight: 600 }}>
+                <span style={{ color: '#cbd5e1', fontWeight: 600 }}>
                   {new Date(w.processedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
                 </span>
               </span>
@@ -129,10 +129,10 @@ const WithdrawalCard: React.FC<{
           {w.status === 'rejected' && w.rejectionReason && (
             <div style={{
               marginTop: '12px', padding: '10px 14px', borderRadius: '10px',
-              background: '#fef2f2', border: '1px solid rgba(244, 63, 94, 0.25)',
-              fontSize: '0.8rem', color: '#9f1239', display: 'flex', gap: '8px', fontWeight: 600,
+              background: 'rgba(244, 63, 94, 0.12)', border: '1px solid rgba(244, 63, 94, 0.35)',
+              fontSize: '0.8rem', color: '#fda4af', display: 'flex', gap: '8px', fontWeight: 600,
             }}>
-              <AlertTriangle style={{ width: '15px', height: '15px', flexShrink: 0, marginTop: '1px', color: '#e11d48' }} />
+              <AlertTriangle style={{ width: '15px', height: '15px', flexShrink: 0, marginTop: '1px', color: '#fda4af' }} />
               <span>{w.rejectionReason}</span>
             </div>
           )}
@@ -141,7 +141,7 @@ const WithdrawalCard: React.FC<{
 
       {/* Cancel action */}
       {w.status === 'pending' && (
-        <div style={{ marginTop: '14px', paddingTop: '14px', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ marginTop: '14px', paddingTop: '14px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', justifyContent: 'flex-end' }}>
           <button
             id={`cancel-withdrawal-${w.id}`}
             onClick={() => onCancel(w.id)}
@@ -228,11 +228,11 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
 
   const filterTabs: { key: StatusFilter; label: string; color?: string }[] = [
     { key: 'all',        label: 'All Requests' },
-    { key: 'pending',    label: '⏳ Pending',    color: '#b45309' },
-    { key: 'processing', label: '⚡ Processing',  color: '#0369a1' },
-    { key: 'approved',   label: '✓ Approved',    color: '#047857' },
-    { key: 'rejected',   label: '✕ Rejected',    color: '#be123c' },
-    { key: 'cancelled',  label: '⊘ Cancelled',   color: '#475569' },
+    { key: 'pending',    label: '⏳ Pending',    color: '#fde047' },
+    { key: 'processing', label: '⚡ Processing',  color: '#38bdf8' },
+    { key: 'approved',   label: '✓ Approved',    color: '#34d399' },
+    { key: 'rejected',   label: '✕ Rejected',    color: '#fda4af' },
+    { key: 'cancelled',  label: '⊘ Cancelled',   color: '#cbd5e1' },
   ];
 
   return (
@@ -262,11 +262,11 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
             Wallet
           </button>
           <div>
-            <h1 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <History style={{ width: '24px', height: '24px', color: '#7c3aed' }} />
+            <h1 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <History style={{ width: '24px', height: '24px', color: '#c084fc' }} />
               Withdrawal History
             </h1>
-            <p style={{ color: '#475569', fontSize: '0.85rem', marginTop: '2px' }}>
+            <p style={{ color: '#94a3b8', fontSize: '0.85rem', marginTop: '2px' }}>
               Track all payout requests and their live statuses.
             </p>
           </div>
@@ -297,10 +297,10 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
       {error && (
         <div className="error-banner">
           <div className="error-banner-content">
-            <AlertTriangle style={{ width: '20px', height: '20px', color: '#e11d48', flexShrink: 0 }} />
+            <AlertTriangle style={{ width: '20px', height: '20px', color: '#fda4af', flexShrink: 0 }} />
             <p>{error}</p>
           </div>
-          <button onClick={() => loadWithdrawals(page)} className="btn-secondary" style={{ fontSize: '0.82rem', padding: '7px 12px', color: '#be123c' }}>
+          <button onClick={() => loadWithdrawals(page)} className="btn-secondary" style={{ fontSize: '0.82rem', padding: '7px 12px', color: '#fda4af' }}>
             Retry
           </button>
         </div>
@@ -359,12 +359,12 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
           <>
             {/* Counter bar */}
             {data.total > 0 && (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px', paddingBottom: '16px', borderBottom: '1px solid #e2e8f0', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.82rem', color: '#64748b' }}>
-                  Showing <strong style={{ color: '#0f172a' }}>{data.items.length}</strong> of <strong style={{ color: '#0f172a' }}>{data.total}</strong> requests
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px', paddingBottom: '16px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
+                  Showing <strong style={{ color: '#f8fafc' }}>{data.items.length}</strong> of <strong style={{ color: '#f8fafc' }}>{data.total}</strong> requests
                 </span>
                 {statusFilter === 'all' && (
-                  <span style={{ fontSize: '0.76rem', color: '#64748b' }}>
+                  <span style={{ fontSize: '0.76rem', color: '#94a3b8' }}>
                     Page {data.page} of {data.totalPages}
                   </span>
                 )}
@@ -377,7 +377,7 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
 
             {/* Pagination */}
             {data.totalPages > 1 && (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '22px', paddingTop: '18px', borderTop: '1px solid #e2e8f0' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '22px', paddingTop: '18px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
                 <button
                   id="withdrawals-prev-page"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
@@ -387,7 +387,7 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
                 >
                   <ChevronLeft style={{ width: '15px', height: '15px' }} /> Prev
                 </button>
-                <span style={{ fontSize: '0.85rem', color: '#0f172a', fontWeight: 800 }}>
+                <span style={{ fontSize: '0.85rem', color: '#f8fafc', fontWeight: 800 }}>
                   {data.page} / {data.totalPages}
                 </span>
                 <button
@@ -407,10 +407,10 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
 
       {/* Info Notice */}
       <div className="info-box" style={{ marginTop: '18px' }}>
-        <CheckCircle2 style={{ width: '18px', height: '18px', color: '#0891b2', flexShrink: 0 }} />
+        <CheckCircle2 style={{ width: '18px', height: '18px', color: '#22d3ee', flexShrink: 0 }} />
         <span>
-          Standard processing time is within <strong style={{ color: '#0f172a' }}>24 hours</strong>, and up to <strong style={{ color: '#0f172a' }}>72 hours</strong> for reviewed cases.
-          Only <strong style={{ color: '#0f172a' }}>pending</strong> withdrawals can be cancelled for immediate VEs refund.
+          Standard processing time is within <strong style={{ color: '#f8fafc' }}>24 hours</strong>, and up to <strong style={{ color: '#f8fafc' }}>72 hours</strong> for reviewed cases.
+          Only <strong style={{ color: '#f8fafc' }}>pending</strong> withdrawals can be cancelled for immediate VEs refund.
         </span>
       </div>
 

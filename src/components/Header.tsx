@@ -16,9 +16,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
   const isLoggedIn = Boolean(localStorage.getItem('veloop_access_token'));
 
   const navLinks = [
-    { path: '/wallet',      label: 'Dashboard',     Icon: Wallet,      activeColor: '#059669' },
-    { path: '/payout',      label: 'Payout / Redeem', Icon: ArrowUpRight, activeColor: '#059669' },
-    { path: '/withdrawals', label: 'Withdrawals',   Icon: History,     activeColor: '#7c3aed' },
+    { path: '/wallet',      label: 'Dashboard',     Icon: Wallet,      activeColor: '#34d399' },
+    { path: '/payout',      label: 'Payout / Redeem', Icon: ArrowUpRight, activeColor: '#34d399' },
+    { path: '/withdrawals', label: 'Withdrawals',   Icon: History,     activeColor: '#c084fc' },
   ];
 
   const handleNav = (path: string) => {
@@ -37,9 +37,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
         >
           <div style={{
             width: '40px', height: '40px', borderRadius: '12px',
-            background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 4px 16px rgba(5, 150, 105, 0.3)', flexShrink: 0,
+            boxShadow: '0 0 20px rgba(16, 185, 129, 0.45)', flexShrink: 0,
             position: 'relative', overflow: 'hidden',
           }}>
             <Zap style={{ color: '#fff', width: '20px', height: '20px', zIndex: 1 }} />
@@ -48,12 +48,12 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
             <div style={{
               fontSize: '1.15rem', fontWeight: 900, letterSpacing: '-0.5px',
               fontFamily: 'var(--font-display)',
-              color: '#0f172a',
+              color: '#f8fafc',
               whiteSpace: 'nowrap', lineHeight: 1.1,
             }}>
-              VELoop <span style={{ color: '#059669' }}>Rewards</span>
+              VELoop <span style={{ color: '#34d399' }}>Rewards</span>
             </div>
-            <div className="header-logo-sub" style={{ fontSize: '0.62rem', color: '#64748b', fontWeight: 800, letterSpacing: '0.9px', textTransform: 'uppercase', marginTop: '2px' }}>
+            <div className="header-logo-sub" style={{ fontSize: '0.62rem', color: '#94a3b8', fontWeight: 800, letterSpacing: '0.9px', textTransform: 'uppercase', marginTop: '2px' }}>
               WALLET &amp; PAYOUTS
             </div>
           </div>
@@ -70,12 +70,13 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
                 onClick={() => handleNav(path)}
                 style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
-                  padding: '9px 18px', borderRadius: '10px', border: 'none',
+                  padding: '9px 18px', borderRadius: '10px',
+                  border: isActive ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid transparent',
                   fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: '0.85rem',
                   cursor: 'pointer',
-                  background: isActive ? '#ffffff' : 'transparent',
-                  color: isActive ? '#0f172a' : '#64748b',
-                  boxShadow: isActive ? '0 2px 8px rgba(15, 23, 42, 0.08)' : 'none',
+                  background: isActive ? 'rgba(30, 41, 59, 0.9)' : 'transparent',
+                  color: isActive ? '#f8fafc' : '#94a3b8',
+                  boxShadow: isActive ? '0 2px 10px rgba(0, 0, 0, 0.3)' : 'none',
                   transition: 'all 0.18s ease',
                 }}
               >
@@ -108,9 +109,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
               onClick={() => handleNav('/wallet')}
               title="Click to view wallet"
             >
-              <Zap style={{ width: '15px', height: '15px', fill: '#059669', color: '#059669', flexShrink: 0 }} />
-              <span className="tabular-num" style={{ fontSize: '0.9rem', fontWeight: 800, color: '#047857' }}>{wallet.balances.VEs.toLocaleString()}</span>
-              <span className="ves-chip-label" style={{ fontSize: '0.7rem', opacity: 0.8, fontWeight: 800, color: '#047857' }}>VEs</span>
+              <Zap style={{ width: '15px', height: '15px', fill: '#34d399', color: '#34d399', flexShrink: 0 }} />
+              <span className="tabular-num" style={{ fontSize: '0.9rem', fontWeight: 800, color: '#34d399' }}>{wallet.balances.VEs.toLocaleString()}</span>
+              <span className="ves-chip-label" style={{ fontSize: '0.7rem', opacity: 0.8, fontWeight: 800, color: '#34d399' }}>VEs</span>
             </div>
           )}
 
@@ -122,12 +123,12 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
                 <img
                   src={wallet.avatarUrl}
                   alt={wallet.userName}
-                  style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid #059669' }}
+                  style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid #10b981' }}
                   onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(wallet.userName)}&background=059669&color=fff`; }}
                 />
                 <div style={{ textAlign: 'left', lineHeight: 1.2 }}>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0f172a' }}>{wallet.userName}</div>
-                  <div style={{ fontSize: '0.64rem', color: '#059669', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 800 }}>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#f8fafc' }}>{wallet.userName}</div>
+                  <div style={{ fontSize: '0.64rem', color: '#34d399', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 800 }}>
                     <ShieldCheck style={{ width: '10px', height: '10px' }} />
                     {wallet.tier}
                   </div>
@@ -136,9 +137,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
                   onClick={onLogout}
                   id="header-logout-btn"
                   title="Switch Demo User / Logout"
-                  style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '4px', marginLeft: '4px', borderRadius: '6px', transition: 'color 0.15s ease' }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = '#e11d48')}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = '#64748b')}
+                  style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px', marginLeft: '4px', borderRadius: '6px', transition: 'color 0.15s ease' }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = '#fb7185')}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = '#94a3b8')}
                 >
                   <LogOut style={{ width: '16px', height: '16px' }} />
                 </button>
@@ -179,9 +180,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
             style={{
               position: 'fixed',
               inset: 0,
-              background: 'rgba(15, 23, 42, 0.45)',
-              backdropFilter: 'blur(6px)',
-              WebkitBackdropFilter: 'blur(6px)',
+              background: 'rgba(3, 7, 18, 0.75)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
               zIndex: 150,
               animation: 'fadeIn 0.2s ease-out',
             }}
@@ -196,42 +197,42 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
               width: '300px',
               maxWidth: '85vw',
               height: '100vh',
-              background: '#ffffff',
-              borderRight: '1px solid #e2e8f0',
+              background: '#0f172a',
+              borderRight: '1px solid rgba(255, 255, 255, 0.1)',
               padding: '22px 18px',
               display: 'flex',
               flexDirection: 'column',
               gap: '18px',
-              boxShadow: '12px 0 40px rgba(15,23,42,0.15)',
+              boxShadow: '16px 0 50px rgba(0,0,0,0.7)',
               zIndex: 160,
               animation: 'slideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               overflowY: 'auto'
             }}
           >
             {/* Drawer Top */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px', borderBottom: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
               <div
                 onClick={() => handleNav('/wallet')}
                 style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
               >
                 <div style={{
                   width: '36px', height: '36px', borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: '0 4px 14px rgba(5, 150, 105, 0.3)'
+                  boxShadow: '0 0 16px rgba(16, 185, 129, 0.4)'
                 }}>
                   <Zap style={{ color: '#fff', width: '20px', height: '20px' }} />
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0f172a', fontFamily: 'var(--font-display)' }}>
-                  VELoop <span style={{ color: '#059669' }}>Rewards</span>
+                <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#f8fafc', fontFamily: 'var(--font-display)' }}>
+                  VELoop <span style={{ color: '#34d399' }}>Rewards</span>
                 </div>
               </div>
 
               <button
                 onClick={() => setMobileNavOpen(false)}
                 style={{
-                  background: '#f1f5f9', border: '1px solid #e2e8f0',
-                  borderRadius: '9px', padding: '6px', color: '#64748b', cursor: 'pointer'
+                  background: 'rgba(30, 41, 59, 0.8)', border: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '9px', padding: '6px', color: '#94a3b8', cursor: 'pointer'
                 }}
               >
                 <X style={{ width: '18px', height: '18px' }} />
@@ -241,39 +242,39 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
             {/* Profile Card in Drawer */}
             {isLoggedIn && wallet ? (
               <div style={{
-                background: '#f8fafc',
+                background: 'rgba(30, 41, 59, 0.7)',
                 padding: '16px', borderRadius: '16px',
-                border: '1px solid #e2e8f0',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 display: 'flex', flexDirection: 'column', gap: '14px'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <img
                     src={wallet.avatarUrl}
                     alt={wallet.userName}
-                    style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #059669' }}
+                    style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #10b981' }}
                     onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(wallet.userName)}&background=059669&color=fff`; }}
                   />
                   <div>
-                    <div style={{ fontSize: '0.96rem', fontWeight: 800, color: '#0f172a' }}>{wallet.userName}</div>
-                    <div style={{ fontSize: '0.74rem', color: '#059669', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 800, marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.96rem', fontWeight: 800, color: '#f8fafc' }}>{wallet.userName}</div>
+                    <div style={{ fontSize: '0.74rem', color: '#34d399', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 800, marginTop: '2px' }}>
                       <ShieldCheck style={{ width: '12px', height: '12px' }} />
                       {wallet.tier} Member
                     </div>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', borderTop: '1px solid #e2e8f0' }}>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Zap style={{ width: '14px', height: '14px', fill: '#059669', color: '#059669' }} />
-                    <strong style={{ color: '#047857', fontFamily: 'var(--font-mono)' }}>{wallet.balances.VEs.toLocaleString()}</strong> VEs
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                  <div style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Zap style={{ width: '14px', height: '14px', fill: '#34d399', color: '#34d399' }} />
+                    <strong style={{ color: '#34d399', fontFamily: 'var(--font-mono)' }}>{wallet.balances.VEs.toLocaleString()}</strong> VEs
                   </div>
 
                   <button
                     onClick={() => { onLogout(); setMobileNavOpen(false); }}
                     style={{
                       display: 'flex', alignItems: 'center', gap: '5px',
-                      background: 'rgba(244, 63, 94, 0.08)', border: '1px solid rgba(244, 63, 94, 0.25)',
-                      color: '#e11d48', padding: '6px 12px', borderRadius: '8px',
+                      background: 'rgba(244, 63, 94, 0.15)', border: '1px solid rgba(244, 63, 94, 0.35)',
+                      color: '#fda4af', padding: '6px 12px', borderRadius: '8px',
                       fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer'
                     }}
                   >
@@ -294,7 +295,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
             )}
 
             {/* Navigation links in Drawer */}
-            <div style={{ fontSize: '0.7rem', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.9px', marginTop: '6px' }}>
+            <div style={{ fontSize: '0.7rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.9px', marginTop: '6px' }}>
               Navigation Menu
             </div>
 
@@ -310,13 +311,13 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
                       padding: '13px 16px', borderRadius: '12px', border: 'none',
                       fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: '0.94rem',
                       cursor: 'pointer',
-                      background: isActive ? 'rgba(16, 185, 129, 0.12)' : '#f8fafc',
-                      color: isActive ? '#047857' : '#475569',
+                      background: isActive ? 'rgba(16, 185, 129, 0.18)' : 'rgba(30, 41, 59, 0.6)',
+                      color: isActive ? '#34d399' : '#cbd5e1',
                       textAlign: 'left',
                       transition: 'all 0.15s ease'
                     }}
                   >
-                    <Icon style={{ width: '20px', height: '20px', color: isActive ? '#047857' : 'inherit' }} />
+                    <Icon style={{ width: '20px', height: '20px', color: isActive ? '#34d399' : 'inherit' }} />
                     {label}
                   </button>
                 );
@@ -327,11 +328,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
             {apiStatus !== 'unknown' && (
               <div style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '12px 14px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0',
-                fontSize: '0.75rem', color: '#64748b', fontWeight: 800, marginTop: 'auto'
+                padding: '12px 14px', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255, 255, 255, 0.1)',
+                fontSize: '0.75rem', color: '#94a3b8', fontWeight: 800, marginTop: 'auto'
               }}>
                 <span>Backend:</span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: apiStatus === 'live' ? '#047857' : '#d97706', fontWeight: 800 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: apiStatus === 'live' ? '#34d399' : '#fbbf24', fontWeight: 800 }}>
                   <span className={`status-dot ${apiStatus === 'live' ? 'status-dot-live' : 'status-dot-mock'}`} />
                   {apiStatus === 'live' ? 'CONNECTED' : 'DEMO MODE'}
                 </span>

@@ -3,7 +3,7 @@ import {
   Zap, ShieldCheck, Gem, Coins, RotateCw,
   ArrowUpRight, ArrowDownLeft, RefreshCw, AlertTriangle,
   ChevronLeft, ChevronRight, Layers, Sparkles,
-  TrendingUp, Clock, CheckCircle, XCircle, History,
+  TrendingUp, Clock, CheckCircle, XCircle, History, Award, CreditCard,
 } from 'lucide-react';
 import { apiClient } from '../services/apiClient';
 import { CURRENCY_CONFIGS } from '../services/mockBackend';
@@ -15,7 +15,7 @@ interface WalletDashboardProps {
   refreshTrigger: number;
 }
 
-// ─── Light Currency Card Component ─────────────────────────────────────────
+// ─── Dark Currency Card Component ─────────────────────────────────────────
 const CurrencyCard: React.FC<{
   currKey: string;
   balance: number;
@@ -26,16 +26,16 @@ const CurrencyCard: React.FC<{
   const isVe = currKey === 'VEs';
   const animatedBalance = useCountUp(balance, 1100, loaded);
 
-  // Custom light gradient for each currency
-  const lightGradients: Record<string, { bg: string; border: string; color: string }> = {
-    VEs:    { bg: 'linear-gradient(135deg, rgba(236, 253, 245, 0.95) 0%, rgba(209, 250, 229, 0.85) 100%)', border: 'rgba(16, 185, 129, 0.35)', color: '#047857' },
-    SVEs:   { bg: 'linear-gradient(135deg, rgba(245, 243, 255, 0.95) 0%, rgba(237, 233, 254, 0.85) 100%)', border: 'rgba(139, 92, 246, 0.35)', color: '#6d28d9' },
-    Gems:   { bg: 'linear-gradient(135deg, rgba(255, 241, 242, 0.95) 0%, rgba(254, 226, 226, 0.85) 100%)', border: 'rgba(244, 63, 94, 0.35)',  color: '#be123c' },
-    Tokens: { bg: 'linear-gradient(135deg, rgba(254, 252, 232, 0.95) 0%, rgba(254, 243, 199, 0.85) 100%)', border: 'rgba(245, 158, 11, 0.35)', color: '#b45309' },
-    Spins:  { bg: 'linear-gradient(135deg, rgba(236, 254, 255, 0.95) 0%, rgba(207, 250, 254, 0.85) 100%)', border: 'rgba(6, 182, 212, 0.35)',  color: '#0369a1' },
+  // Hyper-Premium Translucent Glass & Neon Accent Rings
+  const darkGradients: Record<string, { bg: string; border: string; color: string; iconBg: string; glowShadow: string }> = {
+    VEs:    { bg: 'linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.06) 100%)',  border: 'rgba(16, 185, 129, 0.4)', color: '#34d399', iconBg: 'rgba(16, 185, 129, 0.22)', glowShadow: '0 0 20px rgba(16, 185, 129, 0.25)' },
+    SVEs:   { bg: 'linear-gradient(135deg, rgba(139, 92, 246, 0.18) 0%, rgba(109, 40, 217, 0.06) 100%)', border: 'rgba(139, 92, 246, 0.4)', color: '#c084fc', iconBg: 'rgba(139, 92, 246, 0.22)', glowShadow: '0 0 20px rgba(139, 92, 246, 0.25)' },
+    Gems:   { bg: 'linear-gradient(135deg, rgba(244, 63, 94, 0.18) 0%, rgba(190, 18, 60, 0.06) 100%)',   border: 'rgba(244, 63, 94, 0.4)',  color: '#fda4af', iconBg: 'rgba(244, 63, 94, 0.22)',  glowShadow: '0 0 20px rgba(244, 63, 94, 0.25)' },
+    Tokens: { bg: 'linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(180, 83, 9, 0.06) 100%)',  border: 'rgba(245, 158, 11, 0.4)', color: '#fde047', iconBg: 'rgba(245, 158, 11, 0.22)', glowShadow: '0 0 20px rgba(245, 158, 11, 0.25)' },
+    Spins:  { bg: 'linear-gradient(135deg, rgba(6, 182, 212, 0.18) 0%, rgba(3, 105, 161, 0.06) 100%)',   border: 'rgba(6, 182, 212, 0.4)',  color: '#38bdf8', iconBg: 'rgba(6, 182, 212, 0.22)',  glowShadow: '0 0 20px rgba(6, 182, 212, 0.25)' },
   };
 
-  const lg = lightGradients[currKey] || lightGradients.VEs;
+  const lg = darkGradients[currKey] || darkGradients.VEs;
 
   const renderIcon = () => {
     const style = { width: '22px', height: '22px' };
@@ -53,66 +53,67 @@ const CurrencyCard: React.FC<{
     <div
       className={`glass-card glass-card-interactive ${config.glowClass}`}
       style={{
-        padding: '20px 18px',
+        padding: '22px 20px',
         background: lg.bg,
         border: `1px solid ${lg.border}`,
         position: 'relative',
         overflow: 'hidden',
         cursor: isVe ? 'pointer' : 'default',
-        borderRadius: '20px',
-        boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
+        borderRadius: '22px',
+        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)',
       }}
       onClick={isVe ? onRedeem : undefined}
       title={isVe ? 'Click to redeem VEs for cash payouts' : config.description}
     >
-      {/* Shine Overlay */}
+      {/* Dynamic Metallic Shine Accent */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, transparent 60%)',
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%)',
         pointerEvents: 'none',
       }} />
 
       {/* REDEEMABLE badge */}
       {isVe && (
         <div style={{
-          position: 'absolute', top: '12px', right: '12px',
-          background: 'rgba(16, 185, 129, 0.16)',
-          color: '#047857', fontSize: '0.62rem', fontWeight: 900,
-          padding: '3px 9px', borderRadius: '20px',
-          border: '1px solid rgba(16, 185, 129, 0.35)',
-          display: 'flex', alignItems: 'center', gap: '4px', letterSpacing: '0.5px',
+          position: 'absolute', top: '14px', right: '14px',
+          background: 'rgba(16, 185, 129, 0.22)',
+          color: '#34d399', fontSize: '0.62rem', fontWeight: 900,
+          padding: '4px 10px', borderRadius: '20px',
+          border: '1px solid rgba(16, 185, 129, 0.5)',
+          display: 'flex', alignItems: 'center', gap: '4px', letterSpacing: '0.6px',
+          boxShadow: '0 0 14px rgba(16, 185, 129, 0.35)',
         }}>
-          <Sparkles style={{ width: '9px', height: '9px' }} />
+          <Sparkles style={{ width: '10px', height: '10px' }} />
           REDEEM
         </div>
       )}
 
       {/* Icon Frame */}
       <div style={{
-        width: '42px', height: '42px', borderRadius: '12px',
-        background: '#ffffff',
+        width: '44px', height: '44px', borderRadius: '14px',
+        background: lg.iconBg,
         border: `1px solid ${lg.border}`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: lg.color, marginBottom: '14px',
-        boxShadow: '0 2px 8px rgba(15, 23, 42, 0.06)',
+        color: lg.color, marginBottom: '16px',
+        boxShadow: lg.glowShadow,
       }}>
         {renderIcon()}
       </div>
 
-      <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#475569', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
+      <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#cbd5e1', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
         {config.name}
       </div>
 
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
-        <span className="tabular-num" style={{ fontSize: '1.75rem', fontWeight: 900, color: '#0f172a', lineHeight: 1, fontFamily: 'var(--font-mono)' }}>
+        <span className="tabular-num" style={{ fontSize: '1.85rem', fontWeight: 900, color: '#ffffff', lineHeight: 1, fontFamily: 'var(--font-mono)' }}>
           {loaded ? animatedBalance.toLocaleString() : '—'}
         </span>
-        <span style={{ fontSize: '0.8rem', fontWeight: 900, color: lg.color }}>{config.symbol}</span>
+        <span style={{ fontSize: '0.82rem', fontWeight: 900, color: lg.color }}>{config.symbol}</span>
       </div>
 
       {isVe && (
-        <div style={{ marginTop: '10px', fontSize: '0.74rem', color: '#059669', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '4px' }}>
-          <ArrowUpRight style={{ width: '12px', height: '12px' }} />
+        <div style={{ marginTop: '12px', fontSize: '0.76rem', color: '#34d399', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <ArrowUpRight style={{ width: '13px', height: '13px' }} />
           Tap to redeem
         </div>
       )}
@@ -126,13 +127,13 @@ const StatTile: React.FC<{
   value: string;
   color?: string;
   icon: React.ReactNode;
-}> = ({ label, value, color = '#475569', icon }) => (
+}> = ({ label, value, color = '#cbd5e1', icon }) => (
   <div className="stat-tile">
     <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
       <span style={{ color, display: 'flex' }}>{icon}</span>
       <span className="stat-tile-label">{label}</span>
     </div>
-    <div className="stat-tile-value tabular-num" style={{ color: '#0f172a' }}>
+    <div className="stat-tile-value tabular-num" style={{ color: '#ffffff' }}>
       {value}
     </div>
   </div>
@@ -149,25 +150,26 @@ const TxRow: React.FC<{ tx: Transaction }> = ({ tx }) => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
         <div style={{
           width: '42px', height: '42px', borderRadius: '12px', flexShrink: 0,
-          background: isCredit ? 'rgba(16, 185, 129, 0.12)' : 'rgba(244, 63, 94, 0.12)',
-          border: `1px solid ${isCredit ? 'rgba(16, 185, 129, 0.3)' : 'rgba(244, 63, 94, 0.3)'}`,
+          background: isCredit ? 'rgba(16, 185, 129, 0.18)' : 'rgba(244, 63, 94, 0.18)',
+          border: `1px solid ${isCredit ? 'rgba(16, 185, 129, 0.4)' : 'rgba(244, 63, 94, 0.4)'}`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: isCredit ? '#059669' : '#e11d48',
+          color: isCredit ? '#34d399' : '#fda4af',
+          boxShadow: `0 0 12px ${isCredit ? 'rgba(16, 185, 129, 0.2)' : 'rgba(244, 63, 94, 0.2)'}`,
         }}>
           {isCredit
             ? <ArrowDownLeft style={{ width: '20px', height: '20px' }} />
             : <ArrowUpRight   style={{ width: '20px', height: '20px' }} />}
         </div>
         <div style={{ minWidth: 0 }}>
-          <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '0.94rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <div style={{ fontWeight: 800, color: '#ffffff', fontSize: '0.94rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {tx.description}
           </div>
-          <div style={{ fontSize: '0.76rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '3px', flexWrap: 'wrap' }}>
+          <div style={{ fontSize: '0.76rem', color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '3px', flexWrap: 'wrap' }}>
             <span>{new Date(tx.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</span>
             {tx.referenceId && (
               <>
                 <span>•</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#475569' }}>{tx.referenceId}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#94a3b8' }}>{tx.referenceId}</span>
               </>
             )}
           </div>
@@ -179,7 +181,7 @@ const TxRow: React.FC<{ tx: Transaction }> = ({ tx }) => {
         <div style={{ textAlign: 'right' }}>
           <div className="tabular-num" style={{
             fontWeight: 900, fontSize: '1.05rem',
-            color: isCredit ? '#059669' : '#e11d48',
+            color: isCredit ? '#34d399' : '#fda4af',
           }}>
             {isCredit ? '+' : '-'}{tx.amount.toLocaleString()} {currConfig.symbol}
           </div>
@@ -231,6 +233,8 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
 
   useEffect(() => { loadData(page); }, [page, refreshTrigger]);
 
+  const animatedVeBalance = useCountUp(wallet?.balances.VEs ?? 0, 1200, loaded);
+
   const totalCredited = transactionsData?.items
     .filter((t) => t.type === 'credit' && t.currency === 'VEs')
     .reduce((acc, t) => acc + t.amount, 0) ?? 0;
@@ -254,25 +258,25 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
       {error && (
         <div className="error-banner">
           <div className="error-banner-content">
-            <AlertTriangle style={{ width: '22px', height: '22px', color: '#e11d48', flexShrink: 0 }} />
+            <AlertTriangle style={{ width: '22px', height: '22px', color: '#fda4af', flexShrink: 0 }} />
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.95rem', color: '#9f1239' }}>Couldn't load your wallet</div>
+              <div style={{ fontWeight: 800, fontSize: '0.95rem', color: '#fda4af' }}>Couldn't load your wallet</div>
               <p style={{ margin: 0 }}>{error}</p>
             </div>
           </div>
-          <button onClick={() => loadData(page)} className="btn-secondary" style={{ background: '#ffffff', borderColor: '#fca5a5', padding: '8px 14px', fontSize: '0.82rem', color: '#be123c' }}>
+          <button onClick={() => loadData(page)} className="btn-secondary" style={{ background: 'rgba(244, 63, 94, 0.16)', borderColor: 'rgba(244, 63, 94, 0.4)', padding: '8px 14px', fontSize: '0.82rem', color: '#fda4af' }}>
             <RefreshCw style={{ width: '14px', height: '14px' }} /> Retry
           </button>
         </div>
       )}
 
       {/* Hero Header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '18px', marginBottom: '28px' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '18px', marginBottom: '24px' }}>
         <div>
-          <h1 style={{ fontSize: '1.85rem', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.5px' }}>
+          <h1 style={{ fontSize: '1.95rem', fontWeight: 900, color: '#ffffff', letterSpacing: '-0.5px' }}>
             Rewards Summary
           </h1>
-          <p style={{ color: '#475569', fontSize: '0.9rem', marginTop: '4px' }}>
+          <p style={{ color: '#cbd5e1', fontSize: '0.92rem', marginTop: '4px' }}>
             Manage your VEs earnings, tokens, gems — and redeem for instant payouts.
           </p>
         </div>
@@ -298,6 +302,47 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
           </button>
         </div>
       </div>
+
+      {/* Featured VIP Master Rewards Card */}
+      {wallet && (
+        <div className="vip-master-card">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(16, 185, 129, 0.22)', border: '1px solid rgba(16, 185, 129, 0.45)', color: '#34d399', fontSize: '0.68rem', fontWeight: 900, padding: '4px 12px', borderRadius: '30px', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '12px' }}>
+                <Award style={{ width: '12px', height: '12px' }} />
+                {wallet.tier.toUpperCase()} MEMBER REWARDS
+              </div>
+
+              <div style={{ fontSize: '0.82rem', color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 700 }}>
+                Total Redeemable VEs Balance
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginTop: '4px' }}>
+                <span className="tabular-num" style={{ fontSize: '2.8rem', fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>
+                  {loaded ? animatedVeBalance.toLocaleString() : wallet.balances.VEs.toLocaleString()}
+                </span>
+                <span style={{ fontSize: '1.2rem', fontWeight: 900, color: '#34d399' }}>VEs</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#cbd5e1', fontSize: '0.82rem', fontWeight: 700 }}>
+                <CreditCard style={{ width: '16px', height: '16px', color: '#34d399' }} />
+                <span>Account ID: <strong style={{ color: '#ffffff', fontFamily: 'var(--font-mono)' }}>{wallet.userId.slice(0, 10)}...</strong></span>
+              </div>
+
+              <button
+                onClick={() => onNavigate('/payout')}
+                className="btn-primary"
+                style={{ padding: '11px 22px', fontSize: '0.9rem' }}
+              >
+                <Zap style={{ width: '16px', height: '16px', fill: '#ffffff' }} />
+                Instant Cash Redeem
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 5 Currency Cards Grid */}
       <div style={{
@@ -341,25 +386,25 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
               <StatTile
                 label="VEs Balance"
                 value={(wallet?.balances.VEs ?? 0).toLocaleString() + ' VE'}
-                color="#059669"
+                color="#34d399"
                 icon={<Zap style={{ width: '15px', height: '15px' }} />}
               />
               <StatTile
                 label="This Page Credits"
                 value={'+' + totalCredited.toLocaleString() + ' VE'}
-                color="#047857"
+                color="#10b981"
                 icon={<TrendingUp style={{ width: '15px', height: '15px' }} />}
               />
               <StatTile
                 label="This Page Debits"
                 value={'-' + totalWithdrawn.toLocaleString() + ' VE'}
-                color="#e11d48"
+                color="#fda4af"
                 icon={<XCircle style={{ width: '15px', height: '15px' }} />}
               />
               <StatTile
                 label="Pending Items"
                 value={pendingCount === 0 ? 'None' : `${pendingCount} item${pendingCount > 1 ? 's' : ''}`}
-                color={pendingCount > 0 ? '#b45309' : '#64748b'}
+                color={pendingCount > 0 ? '#fde047' : '#cbd5e1'}
                 icon={<Clock style={{ width: '15px', height: '15px' }} />}
               />
             </>
@@ -373,8 +418,8 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
         {/* Section Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px', marginBottom: '22px' }}>
           <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a' }}>Transaction History</h2>
-            <div style={{ fontSize: '0.82rem', color: '#64748b', marginTop: '3px' }}>All earned rewards, credits, and payout debits</div>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#ffffff' }}>Transaction History</h2>
+            <div style={{ fontSize: '0.82rem', color: '#cbd5e1', marginTop: '3px' }}>All earned rewards, credits, and payout debits</div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -385,7 +430,13 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
                   key={f}
                   id={`tx-filter-${f}`}
                   className={`filter-tab${txFilter === f ? ' active' : ''}`}
-                  onClick={() => setTxFilter(f)}
+                  onClick={() => {
+                    if (!localStorage.getItem('veloop_access_token')) {
+                      onNavigate('/login');
+                      return;
+                    }
+                    setTxFilter(f);
+                  }}
                 >
                   {f === 'all' ? 'All' : f === 'credit' ? '↓ Credits' : '↑ Debits'}
                 </button>
@@ -434,15 +485,21 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
 
             {/* Pagination Controls */}
             {transactionsData && transactionsData.totalPages > 1 && txFilter === 'all' && (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '22px', paddingTop: '18px', borderTop: '1px solid rgba(226, 232, 240, 0.9)' }}>
-                <div style={{ fontSize: '0.82rem', color: '#64748b' }}>
-                  Page <strong style={{ color: '#0f172a' }}>{transactionsData.page}</strong> of{' '}
-                  <strong style={{ color: '#0f172a' }}>{transactionsData.totalPages}</strong> — {transactionsData.total} total
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '22px', paddingTop: '18px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <div style={{ fontSize: '0.82rem', color: '#cbd5e1' }}>
+                  Page <strong style={{ color: '#ffffff' }}>{transactionsData.page}</strong> of{' '}
+                  <strong style={{ color: '#ffffff' }}>{transactionsData.totalPages}</strong> — {transactionsData.total} total
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <button
                     id="tx-prev-page"
-                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    onClick={() => {
+                      if (!localStorage.getItem('veloop_access_token')) {
+                        onNavigate('/login');
+                        return;
+                      }
+                      setPage((p) => Math.max(1, p - 1));
+                    }}
                     disabled={transactionsData.page <= 1 || loading}
                     className="btn-secondary"
                     style={{ padding: '8px 14px', fontSize: '0.84rem' }}
@@ -451,7 +508,13 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
                   </button>
                   <button
                     id="tx-next-page"
-                    onClick={() => setPage((p) => Math.min(transactionsData.totalPages, p + 1))}
+                    onClick={() => {
+                      if (!localStorage.getItem('veloop_access_token')) {
+                        onNavigate('/login');
+                        return;
+                      }
+                      setPage((p) => Math.min(transactionsData.totalPages, p + 1));
+                    }}
                     disabled={transactionsData.page >= transactionsData.totalPages || loading}
                     className="btn-secondary"
                     style={{ padding: '8px 14px', fontSize: '0.84rem' }}
@@ -471,7 +534,7 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({ onNavigate, re
           id="wallet-view-withdrawals"
           onClick={() => onNavigate('/withdrawals')}
           className="btn-secondary"
-          style={{ fontSize: '0.85rem', color: '#7c3aed', borderColor: 'rgba(124, 58, 237, 0.3)', background: 'rgba(124, 58, 237, 0.06)' }}
+          style={{ fontSize: '0.85rem', color: '#c084fc', borderColor: 'rgba(167, 139, 250, 0.35)', background: 'rgba(167, 139, 250, 0.12)' }}
         >
           <CheckCircle style={{ width: '15px', height: '15px' }} />
           View Complete Withdrawal Timeline
