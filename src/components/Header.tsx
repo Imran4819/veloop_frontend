@@ -16,8 +16,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
   const isLoggedIn = Boolean(localStorage.getItem('veloop_access_token'));
 
   const navLinks = [
-    { path: '/wallet',      label: 'Dashboard',     Icon: Wallet,      activeColor: '#34d399' },
-    { path: '/payout',      label: 'Payout / Redeem', Icon: ArrowUpRight, activeColor: '#34d399' },
+    { path: '/wallet',      label: 'Dashboard',     Icon: Wallet,      activeColor: '#fde047' },
+    { path: '/payout',      label: 'Payout / Redeem', Icon: ArrowUpRight, activeColor: '#fde047' },
     { path: '/withdrawals', label: 'Withdrawals',   Icon: History,     activeColor: '#c084fc' },
   ];
 
@@ -37,9 +37,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
         >
           <div style={{
             width: '40px', height: '40px', borderRadius: '12px',
-            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 0 20px rgba(16, 185, 129, 0.45)', flexShrink: 0,
+            boxShadow: '0 0 20px rgba(245, 158, 11, 0.45)', flexShrink: 0,
             position: 'relative', overflow: 'hidden',
           }}>
             <Zap style={{ color: '#fff', width: '20px', height: '20px', zIndex: 1 }} />
@@ -51,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
               color: '#f8fafc',
               whiteSpace: 'nowrap', lineHeight: 1.1,
             }}>
-              VELoop <span style={{ color: '#34d399' }}>Rewards</span>
+              VELoop <span style={{ color: '#fde047' }}>Rewards</span>
             </div>
             <div className="header-logo-sub" style={{ fontSize: '0.62rem', color: '#94a3b8', fontWeight: 800, letterSpacing: '0.9px', textTransform: 'uppercase', marginTop: '2px' }}>
               WALLET &amp; PAYOUTS
@@ -109,9 +109,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
               onClick={() => handleNav('/wallet')}
               title="Click to view wallet"
             >
-              <Zap style={{ width: '15px', height: '15px', fill: '#34d399', color: '#34d399', flexShrink: 0 }} />
-              <span className="tabular-num" style={{ fontSize: '0.9rem', fontWeight: 800, color: '#34d399' }}>{wallet.balances.VEs.toLocaleString()}</span>
-              <span className="ves-chip-label" style={{ fontSize: '0.7rem', opacity: 0.8, fontWeight: 800, color: '#34d399' }}>VEs</span>
+              <Zap style={{ width: '15px', height: '15px', fill: '#fde047', color: '#fde047', flexShrink: 0 }} />
+              <span className="tabular-num" style={{ fontSize: '0.9rem', fontWeight: 800, color: '#fde047' }}>{wallet.balances.VEs.toLocaleString()}</span>
+              <span className="ves-chip-label" style={{ fontSize: '0.7rem', opacity: 0.8, fontWeight: 800, color: '#fde047' }}>VEs</span>
             </div>
           )}
 
@@ -123,12 +123,12 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
                 <img
                   src={wallet.avatarUrl}
                   alt={wallet.userName}
-                  style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid #10b981' }}
-                  onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(wallet.userName)}&background=059669&color=fff`; }}
+                  style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid #f59e0b' }}
+                  onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(wallet.userName)}&background=d97706&color=fff`; }}
                 />
                 <div style={{ textAlign: 'left', lineHeight: 1.2 }}>
                   <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#f8fafc' }}>{wallet.userName}</div>
-                  <div style={{ fontSize: '0.64rem', color: '#34d399', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 800 }}>
+                  <div style={{ fontSize: '0.64rem', color: '#fde047', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 800 }}>
                     <ShieldCheck style={{ width: '10px', height: '10px' }} />
                     {wallet.tier}
                   </div>
@@ -217,14 +217,14 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
               >
                 <div style={{
                   width: '36px', height: '36px', borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: '0 0 16px rgba(16, 185, 129, 0.4)'
+                  boxShadow: '0 0 16px rgba(245, 158, 11, 0.4)'
                 }}>
                   <Zap style={{ color: '#fff', width: '20px', height: '20px' }} />
                 </div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#f8fafc', fontFamily: 'var(--font-display)' }}>
-                  VELoop <span style={{ color: '#34d399' }}>Rewards</span>
+                  VELoop <span style={{ color: '#fde047' }}>Rewards</span>
                 </div>
               </div>
 
@@ -251,12 +251,12 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
                   <img
                     src={wallet.avatarUrl}
                     alt={wallet.userName}
-                    style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #10b981' }}
-                    onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(wallet.userName)}&background=059669&color=fff`; }}
+                    style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #f59e0b' }}
+                    onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(wallet.userName)}&background=d97706&color=fff`; }}
                   />
                   <div>
                     <div style={{ fontSize: '0.96rem', fontWeight: 800, color: '#f8fafc' }}>{wallet.userName}</div>
-                    <div style={{ fontSize: '0.74rem', color: '#34d399', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 800, marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.74rem', color: '#fde047', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 800, marginTop: '2px' }}>
                       <ShieldCheck style={{ width: '12px', height: '12px' }} />
                       {wallet.tier} Member
                     </div>
@@ -265,8 +265,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, wallet,
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
                   <div style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Zap style={{ width: '14px', height: '14px', fill: '#34d399', color: '#34d399' }} />
-                    <strong style={{ color: '#34d399', fontFamily: 'var(--font-mono)' }}>{wallet.balances.VEs.toLocaleString()}</strong> VEs
+                    <Zap style={{ width: '14px', height: '14px', fill: '#fde047', color: '#fde047' }} />
+                    <strong style={{ color: '#fde047', fontFamily: 'var(--font-mono)' }}>{wallet.balances.VEs.toLocaleString()}</strong> VEs
                   </div>
 
                   <button

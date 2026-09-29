@@ -37,7 +37,7 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange, onN
           className="btn-secondary" 
           style={{ padding: '6px 14px', fontSize: '0.8rem', background: 'rgba(30, 41, 59, 0.85)', borderColor: 'rgba(255, 255, 255, 0.12)', color: '#f8fafc' }}
         >
-          <Sliders style={{ width: '14px', height: '14px', color: '#34d399' }} />
+          <Sliders style={{ width: '14px', height: '14px', color: '#fde047' }} />
           <span style={{ fontWeight: 800 }}>Demo &amp; Testing Controls</span>
           {isOpen ? <ChevronDown style={{ width: '14px', height: '14px' }} /> : <ChevronUp style={{ width: '14px', height: '14px' }} />}
         </button>
@@ -85,7 +85,7 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange, onN
               type="checkbox"
               checked={settings.emptyTransactions}
               onChange={(e) => updateSetting({ emptyTransactions: e.target.checked })}
-              style={{ accentColor: '#10b981' }}
+              style={{ accentColor: '#f59e0b' }}
             />
             <Layers style={{ width: '13px', height: '13px' }} />
             Empty History
@@ -130,9 +130,9 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange, onN
               onStateChange();
             }}
             style={{
-              background: 'rgba(16, 185, 129, 0.18)',
-              border: '1px solid rgba(16, 185, 129, 0.4)',
-              color: '#34d399',
+              background: 'rgba(245, 158, 11, 0.18)',
+              border: '1px solid rgba(245, 158, 11, 0.45)',
+              color: '#fde047',
               borderRadius: '8px',
               padding: '5px 12px',
               fontSize: '0.78rem',
@@ -143,7 +143,7 @@ export const DevControlBar: React.FC<DevControlBarProps> = ({ onStateChange, onN
               gap: '5px'
             }}
           >
-            <Zap style={{ width: '13px', height: '13px', fill: '#34d399' }} />
+            <Zap style={{ width: '13px', height: '13px', fill: '#fde047' }} />
             + Add 1,000 VEs
           </button>
 
