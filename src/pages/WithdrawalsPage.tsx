@@ -16,7 +16,7 @@ interface WithdrawalsPageProps {
 const STATUS_CONFIG: Record<WithdrawalStatus, { label: string; color: string; bg: string; border: string; Icon: React.ElementType }> = {
   pending:    { label: 'Pending',    color: '#fde047', bg: 'rgba(245, 158, 11, 0.18)', border: 'rgba(245, 158, 11, 0.4)', Icon: Clock },
   processing: { label: 'Processing', color: '#38bdf8', bg: 'rgba(6, 182, 212, 0.18)',  border: 'rgba(6, 182, 212, 0.4)',  Icon: RefreshCw },
-  approved:   { label: 'Approved',   color: '#34d399', bg: 'rgba(16, 185, 129, 0.18)', border: 'rgba(16, 185, 129, 0.4)', Icon: CheckCircle2 },
+  approved:   { label: 'Approved',   color: '#fde047', bg: 'rgba(245, 158, 11, 0.22)', border: 'rgba(245, 158, 11, 0.45)', Icon: CheckCircle2 },
   rejected:   { label: 'Rejected',   color: '#fda4af', bg: 'rgba(244, 63, 94, 0.18)',  border: 'rgba(244, 63, 94, 0.4)',  Icon: XCircle },
   cancelled:  { label: 'Cancelled',  color: '#cbd5e1', bg: 'rgba(148, 163, 184, 0.18)', border: 'rgba(148, 163, 184, 0.3)', Icon: Ban },
 };
@@ -28,7 +28,7 @@ const METHOD_ICONS: Record<string, React.ElementType> = {
 };
 
 const METHOD_COLORS: Record<string, string> = {
-  upi: '#34d399',
+  upi: '#fde047',
   amazon_gift: '#fbbf24',
   google_play: '#c084fc',
 };
@@ -230,7 +230,7 @@ export const WithdrawalsPage: React.FC<WithdrawalsPageProps> = ({ onNavigate, on
     { key: 'all',        label: 'All Requests' },
     { key: 'pending',    label: '⏳ Pending',    color: '#fde047' },
     { key: 'processing', label: '⚡ Processing',  color: '#38bdf8' },
-    { key: 'approved',   label: '✓ Approved',    color: '#34d399' },
+    { key: 'approved',   label: '✓ Approved',    color: '#fde047' },
     { key: 'rejected',   label: '✕ Rejected',    color: '#fda4af' },
     { key: 'cancelled',  label: '⊘ Cancelled',   color: '#cbd5e1' },
   ];

@@ -81,7 +81,7 @@ export const LoginDemo: React.FC<LoginDemoProps> = ({ onLoginSuccess, onNavigate
             <Zap style={{ color: '#fff', width: '28px', height: '28px' }} />
           </div>
           <h1 className="login-hero-title">
-            VELoop <span style={{ color: '#34d399' }}>Rewards</span>
+            VELoop <span style={{ color: '#fde047' }}>Rewards</span>
           </h1>
           <p className="login-hero-sub">
             Backend-Driven Rewards &amp; Instant Payout Portal
@@ -204,7 +204,7 @@ export const LoginDemo: React.FC<LoginDemoProps> = ({ onLoginSuccess, onNavigate
             </button>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px', fontSize: '0.74rem', color: '#94a3b8', justifyContent: 'center' }}>
-              <ShieldCheck style={{ width: '14px', height: '14px', color: '#34d399' }} />
+              <ShieldCheck style={{ width: '14px', height: '14px', color: '#fde047' }} />
               JWT secured · Live backend validation enabled
             </div>
           </form>

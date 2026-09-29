@@ -16,7 +16,7 @@ interface PayoutFlowProps {
 // ─── Confetti Animation ─────────────────────────────────────────────────────
 const Confetti: React.FC = () => {
   const pieces = Array.from({ length: 24 });
-  const colors = ['#10B981', '#34D399', '#A78BFA', '#FBBF24', '#22D3EE', '#FB7185'];
+  const colors = ['#f59e0b', '#fde047', '#a78bfa', '#fbbf24', '#22d3ee', '#fb7185'];
   return (
     <>
       {pieces.map((_, i) => (
@@ -186,11 +186,11 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
 
           <div style={{
             width: '80px', height: '80px', borderRadius: '50%',
-            background: 'rgba(16, 185, 129, 0.2)',
-            border: '2px solid #10b981',
+            background: 'rgba(245, 158, 11, 0.2)',
+            border: '2px solid #f59e0b',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 22px', color: '#34d399',
-            boxShadow: '0 0 30px rgba(16, 185, 129, 0.4)',
+            margin: '0 auto 22px', color: '#fde047',
+            boxShadow: '0 0 30px rgba(245, 158, 11, 0.4)',
           }}>
             <CheckCircle2 style={{ width: '46px', height: '46px' }} />
           </div>
@@ -226,7 +226,7 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
             ))}
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '12px', fontSize: '0.9rem' }}>
               <span style={{ color: '#94a3b8' }}>Remaining VEs Balance:</span>
-              <span style={{ fontWeight: 900, color: '#34d399', fontFamily: 'var(--font-mono)' }}>{payoutResult.newVeBalance.toLocaleString()} VEs</span>
+              <span style={{ fontWeight: 900, color: '#fde047', fontFamily: 'var(--font-mono)' }}>{payoutResult.newVeBalance.toLocaleString()} VEs</span>
             </div>
           </div>
 
@@ -264,7 +264,7 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', color: '#94a3b8' }}>
             <span>Available:</span>
             <div className="ves-chip" style={{ fontSize: '0.85rem', padding: '5px 12px 5px 9px' }}>
-              <Zap style={{ width: '14px', height: '14px', fill: '#34d399', color: '#34d399' }} />
+              <Zap style={{ width: '14px', height: '14px', fill: '#fde047', color: '#fde047' }} />
               <span>{wallet.balances.VEs.toLocaleString()}</span>
               <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>VEs</span>
             </div>
@@ -320,21 +320,21 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
                   style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     padding: '20px 22px', borderRadius: '18px',
-                    background: isSelected ? 'rgba(16, 185, 129, 0.18)' : 'rgba(15, 23, 42, 0.7)',
-                    border: `1.5px solid ${isSelected ? '#10b981' : isActive ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)'}`,
+                    background: isSelected ? 'rgba(245, 158, 11, 0.18)' : 'rgba(15, 23, 42, 0.7)',
+                    border: `1.5px solid ${isSelected ? '#f59e0b' : isActive ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)'}`,
                     cursor: isActive ? 'pointer' : 'not-allowed',
                     opacity: isActive ? 1 : 0.55,
                     transition: 'all 0.22s ease',
-                    boxShadow: isSelected ? '0 8px 30px rgba(16,185,129,0.25)' : '0 2px 8px rgba(0,0,0,0.3)',
+                    boxShadow: isSelected ? '0 8px 30px rgba(245, 158, 11, 0.25)' : '0 2px 8px rgba(0,0,0,0.3)',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
                     <div style={{
                       width: '52px', height: '52px', borderRadius: '14px',
-                      background: isActive ? 'rgba(16, 185, 129, 0.2)' : 'rgba(30, 41, 59, 0.8)',
-                      color: isActive ? '#34d399' : '#94a3b8',
+                      background: isActive ? 'rgba(245, 158, 11, 0.2)' : 'rgba(30, 41, 59, 0.8)',
+                      color: isActive ? '#fde047' : '#94a3b8',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      border: isActive ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(255,255,255,0.1)',
+                      border: isActive ? '1px solid rgba(245, 158, 11, 0.4)' : '1px solid rgba(255,255,255,0.1)',
                     }}>
                       {renderMethodIcon(m.iconName, 24)}
                     </div>
@@ -363,7 +363,7 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
       {step === 2 && selectedMethod && (
         <div className="glass-card page-enter" style={{ padding: '32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '24px' }}>
-            <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(16,185,129,0.4)' }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(245, 158, 11, 0.2)', color: '#fde047', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(245,158,11,0.4)' }}>
               {renderMethodIcon(selectedMethod.iconName, 22)}
             </div>
             <div>
@@ -388,11 +388,11 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
                   {d.popular && (
                     <div style={{
                       position: 'absolute', top: '10px', right: '10px',
-                      background: 'linear-gradient(135deg, #10b981, #059669)',
+                      background: 'linear-gradient(135deg, #f59e0b, #d97706)',
                       color: '#FFF', fontSize: '0.6rem', fontWeight: 900,
                       padding: '2px 8px', borderRadius: '10px',
                       display: 'flex', alignItems: 'center', gap: '3px',
-                      boxShadow: '0 2px 10px rgba(16,185,129,0.4)',
+                      boxShadow: '0 2px 10px rgba(245,158,11,0.4)',
                     }}>
                       <Star style={{ width: '9px', height: '9px', fill: '#FFF' }} /> POPULAR
                     </div>
@@ -402,8 +402,8 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
                     ₹{d.payoutAmount}
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.85rem', color: canAfford ? '#34d399' : '#fda4af', fontWeight: 900, marginBottom: '10px' }}>
-                    <Zap style={{ width: '14px', height: '14px', fill: canAfford ? '#34d399' : '#fda4af' }} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.85rem', color: canAfford ? '#fde047' : '#fda4af', fontWeight: 900, marginBottom: '10px' }}>
+                    <Zap style={{ width: '14px', height: '14px', fill: canAfford ? '#fde047' : '#fda4af' }} />
                     {d.requiredVEs.toLocaleString()} VEs
                   </div>
 
@@ -499,7 +499,7 @@ export const PayoutFlow: React.FC<PayoutFlowProps> = ({ onNavigate, onPayoutComp
             <div style={{ background: 'rgba(15, 23, 42, 0.85)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '18px', padding: '24px', marginBottom: '22px' }}>
               <div style={{ textAlign: 'center', marginBottom: '18px', paddingBottom: '18px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
                 <div style={{ fontSize: '0.76rem', color: '#94a3b8', marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '0.6px', fontWeight: 800 }}>Total Payout Amount</div>
-                <div style={{ fontSize: '2.5rem', fontWeight: 900, color: '#34d399', fontFamily: 'var(--font-mono)' }}>
+                <div style={{ fontSize: '2.5rem', fontWeight: 900, color: '#fde047', fontFamily: 'var(--font-mono)' }}>
                   ₹{selectedDenom.payoutAmount}
                 </div>
                 <div style={{ fontSize: '0.84rem', color: '#fda4af', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '6px' }}>
